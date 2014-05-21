@@ -17,8 +17,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav nav-pills nav-links">
-        <li><a href="/">Link1</a></li>
-        <li><a href="#" id="contact-link">Link2</a></li>
+        <li><a href="#" id="nav-search-link">Link2</a></li>
+        <% if current_user %>
+          <li><a href="#/">My Library</a></li>
+        <% end %>
       </ul>
 
       <% if current_user %>

@@ -11,6 +11,7 @@ Users
   omniauthable
 
 Friendships
+  **** Still need to make model and migration
   Two way friendships only (if you add one, also add the other)
   (do in the backend for now)
   friendships can be a nested resource (index: users have many friends)
@@ -21,7 +22,7 @@ Bookshelves
   name
 
 Books
-  book_shelf_id
+  bookshelf_id
   belong to a user through the bookshelf
   rating (1-5)
   reading_status ('N'ot yet read, 'R'eading, 'F'inished)
