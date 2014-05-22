@@ -50,7 +50,7 @@ How do users add books to their library?
 
 # Functionality #
 
-## Intro pages ##
+## Basics ##
   * Header to log-in
   * Section to sign up
   * Footer with links to about/contact pages
@@ -58,13 +58,6 @@ How do users add books to their library?
 ## User show pages ##
 
   * Basic show page for users (their home page)
-    * Feed for their friends activities (new books added)
-  * Link to My Library
-    * Show page for your library (bookshelf index page, nested under users)
+    * Starts with the library, #/ is the user's library
 
-
-
-  
-
-
-
+    

@@ -1,8 +1,19 @@
+<script type="application/json" id="bstrapped-current-user">
+  { "current_user_id": <%= current_user.id %> }
+</script>
+
 <h3><%= @user.email %></h3>
 
 <form>
   <input type="text" name="book-search-form">
 </form>
 
+
+<div id="library">
+</div>
+
  <!-- https://www.googleapis.com/books/v1/volumes?q=flowers -->
 
+<script>
+  $(Bookfriends.initialize);
+</script>

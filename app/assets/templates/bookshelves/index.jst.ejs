@@ -1,0 +1,17 @@
+
+This is your library.
+
+<ul>
+  <% shelves.each(function (shelf) { %>
+    <li><%= shelf.escape("name") %></li>
+
+            <ul>
+              <% shelf.books().each(function (book) { %>
+                <li><%= book.escape("title") %></li>
+              <% }); %>
+            </ul>
+
+
+  <% }); %>
+</ul>
+</div>

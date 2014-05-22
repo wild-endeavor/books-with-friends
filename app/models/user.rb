@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   validates :password_digest, :presence => true
   validates :session_token, :presence => true
 
+  has_many :bookshelves
+  has_many :books, :through => :bookshelves, :source => :books
 
   def self.find_by_credentials(email, plain_text)
     user = User.find_by_email(email)
