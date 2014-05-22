@@ -1,7 +1,7 @@
 window.Bookfriends.Collections.Bookshelves = Backbone.Collection.extend({
   model: Bookfriends.Models.Bookshelf,
 
-  initialize: function(options) {
+  initialize: function(models, options) {
     this.userId = options.userId;
   },
 

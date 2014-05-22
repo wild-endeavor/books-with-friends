@@ -6,10 +6,12 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
   shelvesIndex: function() {
     var currentUser = JSON.parse($('#bstrapped-current-user').html());
     var shelves = Bookfriends.Collections.shelves =
-      new Bookfriends.Collections.Bookshelves({
+      new Bookfriends.Collections.Bookshelves([], {
         userId: currentUser.current_user_id
       });
 
+    // TODO - Make the backend return an empty array if the user
+    //        does not have any bookshelves
     shelves.fetch();
 
     var view = new Bookfriends.Views.Library({
