@@ -8,10 +8,8 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.books(), "add", this.addBook);
     this.listenTo(this.model.books(), "remove", this.removeBook);
 
-    // TODO add functionality to add/remove books
     // Add subviews for books
     var parentView = this;
-
     this.model.books().each(function(book) {
       var bookShowView = new Bookfriends.Views.BookShow({
         model: book

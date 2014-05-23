@@ -1,9 +1,12 @@
 window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
   routes: {
-    "": "shelvesIndex"
+    "": "shelvesIndex",
+    "search": "searchHome"
   },
 
   shelvesIndex: function() {
+    $("#search").html("");
+
     var currentUser = JSON.parse($('#bstrapped-current-user').html());
     var shelves = Bookfriends.Collections.shelves =
       new Bookfriends.Collections.Bookshelves([], {
@@ -17,19 +20,24 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     var view = new Bookfriends.Views.Library({
       collection: shelves
     });
-    // qqq = view;
 
-    this._swapView(view);
+    this._swapView(view, "#library");
   },
 
-  _swapView: function(view) {
+  searchHome: function() {
+    $("#library").html("");
+    var view = new Bookfriends.Views.SearchHome();
+    this._swapView(view, "#search");
+  },
+
+  _swapView: function(view, selector) {
     if (this._currentView) {
       this._currentView.remove();
     }
 
     this._currentView = view;
 
-    $('#library').html(view.render().$el);
+    $(selector).html(view.render().$el);
   }
 
 });

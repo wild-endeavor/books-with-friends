@@ -10,7 +10,6 @@ window.Bookfriends.Models.Bookshelf = Backbone.Model.extend({
   },
 
   parse: function(jsonResponse) {
-    debugger
     if (jsonResponse.books) {
       this.books().set(jsonResponse.books, {parse: true});
       delete jsonResponse.books;

@@ -11,6 +11,8 @@ module Bookfriends
 
     # config.assets.paths << "app/assets/templates"
     config.assets.paths << "fonts"
+    config.assets.initialize_on_precompile = false
+
 
   end
 end

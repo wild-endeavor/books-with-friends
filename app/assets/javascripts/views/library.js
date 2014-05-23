@@ -22,14 +22,12 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     // Make subviews for each of the bookshelves
     var parentView = this;
     this.collection.each(function (bookshelf) {
-      debugger
       var shelfShowView = new Bookfriends.Views.ShelfShow({
         model: bookshelf
       });
       parentView.addSubview("#bookshelf-container", shelfShowView);
     });
 
-    qqq = this;
   },
 
   addShelf: function (shelf) {
