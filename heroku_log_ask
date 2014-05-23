@@ -1,0 +1,13 @@
+Couldn't create database for {"adapter"=>"postgresql", "encoding"=>"unicode", "pool"=>5, "database"=>"db991r9e78kfgq", "username"=>"dwftbmbjrnjoqn", "password"=>"1WQlEO1mubkK2l90xmdWkxbytO", "port"=>5432, "host"=>"ec2-54-243-49-204.compute-1.amazonaws.com"}
+-- enable_extension("plpgsql")
+   -> 0.1130s
+-- create_table("books", {:force=>true})
+   -> 0.0591s
+-- create_table("bookshelves", {:force=>true})
+   -> 0.0147s
+-- create_table("users", {:force=>true})
+   -> 0.0452s
+-- initialize_schema_migrations_table()
+   -> 0.1077s
+elessar0x3@lothlorien:~/dev/app_acad
+
