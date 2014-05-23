@@ -9,41 +9,42 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     id: "library"
   },
 
-  template: JST["bookshelves/index"],
+  template: JST["library"],
 
   initialize: function(options) {
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
-    this.listenTo(this.collection, "sync", this.render);
-    this.listenTo(this.collection, "add", this.addShelf);
-    this.listenTo(this.collection, "remove", this.removeShelf);
 
-    shelves = this.collection;
+    var shelves = this.collection;
 
-    // Make subviews for each of the bookshelves
-    var parentView = this;
-    this.collection.each(function (bookshelf) {
-      var shelfShowView = new Bookfriends.Views.ShelfShow({
-        model: bookshelf
-      });
-      parentView.addSubview("#bookshelf-container", shelfShowView);
+    // Make subviews for the sidebar
+    var shelfIndexView = new Bookfriends.Views.ShelfIndex({
+      collection: shelves,
+      parentView: this
     });
+    this.addSubview("#bookshelf-list", shelfIndexView);
 
+    // Make a subview for the main shelf show area
+    this.replaceShelfView(shelves.models[0] || new Bookfriends.Models.Bookshelf());
   },
 
-  addShelf: function (shelf) {
+  changeShelf: function(shelfCollection) {
+    if (shelfCollection.models[0]) {
+      this.replaceShelfView(shelfCollection.models[0]);
+    }
+  },
+
+  replaceShelfView: function(newShelf) {
+    var shelfSubviews = this.subviews("#shelf-show");
+    if (shelfSubviews && shelfSubviews.length > 0) {
+      shelfSubviews[0].remove();
+      shelfSubviews.splice(0, 1);
+    }
+
     var shelfShowView = new Bookfriends.Views.ShelfShow({
-      model: shelf
+      collection: this.collection,
+      model: newShelf
     });
-    this.addSubview("#bookshelf-container", shelfShowView);
-  },
-
-  removeShelf: function(shelf) {
-    var subview = _.find(this.subviews("#bookshelf-container"),
-      function (subview) {
-        return subview.model === shelf;
-      }
-    );
-    this.removeSubview("#bookshelf-container", subview);
+    this.addSubview("#shelf-show", shelfShowView);
   },
 
   render: function() {

@@ -1,5 +1,12 @@
 
-This is your library.
-
 <div id="bookshelf-container">
 </div>
+
+<% if (shelves.models.length > 0) { %>
+    <% shelves.each( function (shelf) { %>
+      <div class="a-bookshelf-name panel" data-id="<%= shelf.escape("id") %>"><%= shelf.escape("name") %></div> 
+    <% }); %>
+<% } %>
+
+<button class="btn btn-primary">Add A Bookshelf</button>
+

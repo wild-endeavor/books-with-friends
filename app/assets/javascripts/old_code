@@ -1,0 +1,17 @@
+
+Originally in shelf_index.js
+  // addShelf: function (shelf) {
+  //   var shelfShowView = new Bookfriends.Views.ShelfShow({
+  //     model: shelf
+  //   });
+  //   this.addSubview("#bookshelf-container", shelfShowView);
+  // },
+
+  // removeShelf: function(shelf) {
+  //   var subview = _.find(this.subviews("#bookshelf-container"),
+  //     function (subview) {
+  //       return subview.model === shelf;
+  //     }
+  //   );
+  //   this.removeSubview("#bookshelf-container", subview);
+  // },

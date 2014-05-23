@@ -11,21 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521182119) do
+ActiveRecord::Schema.define(version: 20140523161908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "books", force: true do |t|
     t.integer  "bookshelf_id"
-    t.string   "title",                    null: false
-    t.string   "author",                   null: false
+    t.string   "title",                     null: false
+    t.string   "author",                    null: false
     t.string   "google_id"
     t.integer  "rating"
-    t.string   "reading_status", limit: 1
+    t.string   "reading_status",  limit: 1
     t.text     "review"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "thumbnail_small"
+    t.text     "thumbnail"
+    t.string   "self_link"
   end
 
   create_table "bookshelves", force: true do |t|
@@ -33,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140521182119) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "rank"
   end
 
   create_table "users", force: true do |t|
