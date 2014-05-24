@@ -8,6 +8,12 @@ class User < ActiveRecord::Base
 
   has_many :bookshelves
   has_many :books, :through => :bookshelves, :source => :books
+  has_many(:friendships,
+    :class_name => "Friendship",
+    :foreign_key => :source_friend,
+    :primary_key => :id
+  )
+  has_many :friends, :through => :friendships, :source => :friend
 
   def self.find_by_credentials(email, plain_text)
     user = User.find_by_email(email)

@@ -10,10 +10,10 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       new Bookfriends.Collections.Bookshelves([], {
         userId: currentUser.current_user_id
       });
+    shelves.fetch();
 
     // TODO - Make the backend return an empty array if the user
     //        does not have any bookshelves
-    shelves.fetch();
 
     var view = new Bookfriends.Views.Library({
       collection: shelves
@@ -28,6 +28,7 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       new Bookfriends.Collections.Bookshelves([], {
         userId: currentUser.current_user_id
       });
+    shelves.fetch();
 
     var view = new Bookfriends.Views.SearchHome({
       collection: shelves

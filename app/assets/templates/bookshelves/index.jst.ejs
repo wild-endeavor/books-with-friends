@@ -1,12 +1,23 @@
 
-<div id="bookshelf-container">
-</div>
-
 <% if (shelves.models.length > 0) { %>
+  <ul class="nav nav-pills nav-stacked">
     <% shelves.each( function (shelf) { %>
-      <div class="a-bookshelf-name panel" data-id="<%= shelf.escape("id") %>"><%= shelf.escape("name") %></div> 
+      <li class="a-bookshelf-name" data-id="<%= shelf.escape("id") %>"><a href="#/"><%= shelf.escape("name") %></a></li>
     <% }); %>
+  </ul>
 <% } %>
 
-<button class="btn btn-primary">Add A Bookshelf</button>
+<form id="new-bookshelf-form">
+  <div class="input-group-sm">
+    <input
+      type="text"
+      style="display:none"
+      name="bookshelf[name]"
+      id="new-bookshelf"
+      class="form-control"
+      placeholder="New bookshelf name..."
+    >
+  </div>
+</form>
+<button class="btn btn-default btn-xs add-bookshelf"><span class="glyphicon glyphicon-plus"> Bookshelf</button>
 

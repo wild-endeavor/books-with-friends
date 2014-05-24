@@ -13,10 +13,11 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
 
   initialize: function(options) {
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
+    // this.listenTo(this.collection, "sync", this.startShelf)
 
     var shelves = this.collection;
 
-    // Make subviews for the sidebar
+    // Make subview for the sidebar
     var shelfIndexView = new Bookfriends.Views.ShelfIndex({
       collection: shelves,
       parentView: this
@@ -24,16 +25,16 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     this.addSubview("#bookshelf-list", shelfIndexView);
 
     // Make a subview for the main shelf show area
-    this.replaceShelfView(shelves.models[0] || new Bookfriends.Models.Bookshelf());
+    // this.changeActiveShelf(shelves.models[0] || new Bookfriends.Models.Bookshelf());
   },
 
-  changeShelf: function(shelfCollection) {
-    if (shelfCollection.models[0]) {
-      this.replaceShelfView(shelfCollection.models[0]);
-    }
-  },
+  // startShelf: function() {
+  //   if (this.collection.models[0]) {
+  //     this.changeActiveShelf(this.collection.models[0]);
+  //   }
+  // },
 
-  replaceShelfView: function(newShelf) {
+  changeActiveShelf: function(newShelf) {
     var shelfSubviews = this.subviews("#shelf-show");
     if (shelfSubviews && shelfSubviews.length > 0) {
       shelfSubviews[0].remove();

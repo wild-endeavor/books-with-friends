@@ -6,4 +6,22 @@ class Api::BookshelvesController < ApplicationController
     render :index
   end
 
+  def create
+    user = User.find(params[:user_id])
+    last_bookshelf = user.bookshelves.sort_by(&:rank).last
+    rank = last_bookshelf.rank + 1
+    shelf = Bookshelf.new(:user_id => params[:user_id], :rank => rank, :name => params[:name])
+    if shelf.save
+      render :json => shelf
+    else
+      render :json => shelf.errors.full_messages, :status => :unprocessable_entity
+    end
+  end
+
+  private
+
+  def bookshelf_params
+    params.require(:bookshelf).permit(:name)
+  end
+
 end

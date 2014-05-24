@@ -1,4 +1,11 @@
 window.Bookfriends.Models.Bookshelf = Backbone.Model.extend({
+  url: function() {
+    if (this.isNew()) {
+      return "/api/users/" + this.escape("user_id") + "/bookshelves";
+    } else {
+      return "api/bookshelves/" + this.id;
+    }
+  },
 
   books: function() {
     if (!this._books) {

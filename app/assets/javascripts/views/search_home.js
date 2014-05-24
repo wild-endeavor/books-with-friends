@@ -6,47 +6,54 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
     var shelves = this.collection;
 
-    this.shelf = new Bookfriends.Models.Bookshelf();
+    // this.listenTo(this.collection, "sync", this.startShelf);
 
-    // Make subviews for the sidebar
+    // Make subview for the sidebar
     var shelfIndexView = new Bookfriends.Views.ShelfIndex({
       collection: shelves,
       parentView: this
     });
     this.addSubview("#bookshelf-list", shelfIndexView);
 
-    // Make a subview for the main shelf show area
-    this.replaceShelfView(shelves.models[0] || new Bookfriends.Models.Bookshelf());
+    // Main shelf object into which to store search results
+    this.searchShelf = new Bookfriends.Models.Bookshelf({
+      name: "Search Results"
+    });
+
+    // Active shelf object into which to add new books
+    this._activeShelf;
+
+    this.hasSearched = false;
+    this.searchTerms = "";
 
     // TODO: Add initialization logic to this here and the router to set up another bookshelf
     // that contains not only all your books but also all your friends books.
     // Do this in order to match up all the books you and your friends have
     // against google API search results.
 
-    this.listenTo(this.shelf.books(), "sync", this.render);
-    this.listenTo(this.shelf.books(), "add", this.addBook);
-    this.listenTo(this.shelf.books(), "remove", this.removeBook);
-
     this.searchSuggestions = [];
     this.initializedBloodhound = false;
-
   },
 
-  // addBook: function(book) {
-  //   var bookShowView = new Bookfriends.Views.BookShow({
-  //     model: book
-  //   });
-  //   this.addSubview("#main-search-results", bookShowView);
+  // startShelf: function() {
+  //   this.activeShelf = this.collection.models[0];
   // },
 
-  // removeBook: function(book) {
-  //   var subview = _.find(this.subviews("#main-search-results"),
-  //     function(subview) {
-  //       return subview.model === book;
-  //     }
-  //   );
-  //   this.removeSubview("#main-search-results", subview);
-  // },
+  // shelf index view event will trigger changes to the active shelf
+  // through this function
+  changeActiveShelf: function(newShelf) {
+    this._activeShelf = newShelf;
+  },
+
+  startSearchResultsView: function() {
+    this.hasSearched = true;
+    var shelfShowView = new Bookfriends.Views.ShelfShow({
+      collection: this.collection,
+      model: this.searchShelf
+    });
+    this.addSubview("#main-search-results", shelfShowView);
+    this.render();
+  },
 
   events: {
     "keyup #main-search-box": "keyUpHandler"
@@ -92,6 +99,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
 
   performSearch: function(event) {
     var searchString = event.target.value;
+    this.searchTerms = searchString;
 
     $.ajax({
       url: "https://www.googleapis.com/books/v1/volumes",
@@ -137,8 +145,14 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
 
   handleSearchResponse: function(response) {
     var parsedBooks = this.extractBooksData(response);
-    console.log(parsedBooks);
-    this.shelf.books().set(parsedBooks);
+    // console.log(parsedBooks);
+    if (!this.hasSearched) {
+      this.hasSearched = true;
+      this.startSearchResultsView();
+    }
+    this.searchShelf.books().set(parsedBooks);
+    this.searchShelf.name = "Search Results: " + this.searchTerms;
+    this.$el.find("#main-search-box").val("");
   },
 
   extractBooksData: function(response) {

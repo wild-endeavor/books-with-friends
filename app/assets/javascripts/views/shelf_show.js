@@ -5,7 +5,7 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     // this.model (automatically) is a Bookfriends.Models.Bookshelf
     //    but will be an empty one if the user does not have any defined.
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
-    
+    this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model.books(), "sync", this.render);
     this.listenTo(this.model.books(), "add", this.addBook);
     this.listenTo(this.model.books(), "remove", this.removeBook);
