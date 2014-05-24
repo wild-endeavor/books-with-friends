@@ -6,6 +6,7 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
 
     this.listenTo(this.collection, "sync", this.render);
     this.listenTo(this.collection, "sync", this.handleSync);
+    this._activeShelf;
   },
 
   template: JST["bookshelves/index"],
@@ -14,21 +15,22 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
     var shelfId = $(event.currentTarget).data("id");
     var newShelf = this.collection.get(shelfId);
     if (newShelf) {
-      // this.parentView.changeActiveShelf.bind(this.parentView)(newShelf);
-      this.setActiveShelf(newShelf);
+      this._activeShelf = newShelf;
+      this.setActiveShelf();
     }
   },
 
   handleSync: function(collection) {
     if (!collection.models) { return; } // when adding, this runs for some reason.
     if (collection.models.length > 0) {
-      this.setActiveShelf(collection.models[0])
+      this._activeShelf = collection.models[0];
+      this.setActiveShelf()
     }
   },
 
   setActiveShelf: function(newShelf) {
     if (!newShelf) {
-      newShelf = this.collection.models[0];
+      newShelf = this._activeShelf || this.collection.models[0];
     }
     if (newShelf) {
       this.$el.find(".a-bookshelf-name").removeClass("active");
@@ -54,16 +56,14 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
     _(data.bookshelf).extend({ user_id: this.collection.userId });
     var shelf = new Bookfriends.Models.Bookshelf(data["bookshelf"]);
     var parentView = this;
-ttt = this;
-s = shelf;
+// ttt = this;
+// s = shelf;
 // debugger
     shelf.save({}, {
       success: function(model, response) {
         // debugger
         parentView.collection.add(shelf);
-        // parentView.collection.sort();
-        parentView.render();
-        parentView.setActiveShelf(shelf);
+        parentView._activeShelf = shelf;
       }
     });
   },
@@ -73,7 +73,7 @@ s = shelf;
       shelves: this.collection
     });
     this.$el.html(renderedContent);
-    // this.attachSubviews();
+    this.setActiveShelf();
 
     return this;
   }

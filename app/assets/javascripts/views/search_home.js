@@ -31,13 +31,59 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     // Do this in order to match up all the books you and your friends have
     // against google API search results.
 
+    // Setup for typeahead-bloodhound and the google suggestion to work.
     this.searchSuggestions = [];
     this.initializedBloodhound = false;
+    this.cbTemp = function() {
+      var args = [].slice.call(arguments);
+      if ($.isArray(args[0])) {
+        if ($.isArray(args[0][1]) && args[0][1].length > 0) {
+          this.searchSuggestions = args[0][1].map( function(ele) { return ele[0]; });
+          this.startBloodhound();      
+        }
+      }
+      console.log(this.searchSuggestions);
+    };
+    this.suggestCallBack = this.cbTemp.bind(this);
   },
 
-  // startShelf: function() {
-  //   this.activeShelf = this.collection.models[0];
-  // },
+  resetBloodhound: function() {
+    this.engine.clear();
+    this.engine.add($.map(this.searchSuggestions, function(term) {
+      return { value: term };
+    }));
+  },
+
+  startBloodhound: function() {
+    if (this.initializedBloodhound) {
+      this.resetBloodhound();
+      return;
+    }
+    this.initializedBloodhound = true;
+
+    this.engine = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      // `states` is an array of state names defined in "The Basics"
+      local: $.map(this.searchSuggestions, function(term) { return { value: term }; })
+    });
+ 
+    // kicks off the loading/processing of `local` and `prefetch`
+    this.engine.initialize();
+ 
+    $('#bloodhound-search-area .typeahead').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    },
+    {
+      name: 'search_suggestions',
+      displayKey: 'value',
+      // `ttAdapter` wraps the suggestion engine in an adapter that
+      // is compatible with the typeahead jQuery plugin
+      source: this.engine.ttAdapter()
+    });
+  },
 
   // shelf index view event will trigger changes to the active shelf
   // through this function
@@ -76,25 +122,21 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     }
 
     var searchString = event.target.value;
-
-    // if (searchString.length >= 3) {
-    //   $.ajax({
-    //     url: "http://suggestqueries.google.com/complete/search?client=books",
-    //     data: {
-    //       ds: "bo",
-    //       q: searchString
-    //     },
-    //     dataType: "json",
-    //     success: "handleSearchSuggestions"
-    //   });
-    // } else {
-    //   this.searchSuggestions = [];
-    // }
-  },
-
-  handleSearchSuggestions: function(response) {
-    console.log(response);
-    debugger;
+    if (searchString.length >= 3) {
+      $.ajax({
+        url: "http://suggestqueries.google.com/complete/search?client=books",
+        data: {
+          hl: "en",
+          ds: "bo",
+          client: "books",
+          q: searchString
+        },
+        dataType: "jsonp",
+        success: this.suggestCallBack
+      });
+    } else {
+      this.searchSuggestions = [];
+    }
   },
 
   performSearch: function(event) {
@@ -114,34 +156,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     });
   },
 
-  startBloodhound: function() {
-    this.initializedBloodhound = true;
-
-    this.BhObj = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      local: $.map(this.searchSuggestions, function(suggestion) {
-        return { value: suggestion };
-      })
-    });
-     
-    // kicks off the loading/processing of `local` and `prefetch`
-    this.BhObj.initialize();
-     
-    $('#bloodhound-search-area .typeahead').typeahead({
-      hint: true,
-      highlight: true,
-      minLength: 1
-    },
-    {
-      name: 'BhObj', // what is this name for???
-      displayKey: 'value',
-      // `ttAdapter` wraps the suggestion engine in an adapter that
-      // is compatible with the typeahead jQuery plugin
-      source: this.BhObj.ttAdapter()
-    });
-
-  },
 
   handleSearchResponse: function(response) {
     var parsedBooks = this.extractBooksData(response);
