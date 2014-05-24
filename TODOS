@@ -1,0 +1,10 @@
+
+
+Ask about the Heroku logs.
+
+Verify that merely preventing default is sufficient when changing active bookshelves in the search view.
+
+Figure out why adding a bookshelf is triggering a sync event.
+
+
+

@@ -6,9 +6,22 @@ eve = User.create!(:email => "eve@swift.com", :password => "password")
 amy = User.create!(:email => "amy@tardis.com", :password => "password")
 rory = User.create!(:email => "rory@taris.com", :password => "password")
 
+# Friendships - two by two
+Friendship.create!(:source_friend => alice.id, :dest_friend => bob.id)
+Friendship.create!(:source_friend => bob.id, :dest_friend => alice.id)
+Friendship.create!(:source_friend => amy.id, :dest_friend => rory.id)
+Friendship.create!(:source_friend => rory.id, :dest_friend => amy.id)
+Friendship.create!(:source_friend => eve.id, :dest_friend => rory.id)
+Friendship.create!(:source_friend => rory.id, :dest_friend => eve.id)
+Friendship.create!(:source_friend => bob.id, :dest_friend => rory.id)
+Friendship.create!(:source_friend => rory.id, :dest_friend => bob.id)
+
+
 # Bookshelves
 alice_math = Bookshelf.create!(:user_id => alice.id, :name => "Math", :rank => 1)
 alice_cooking = Bookshelf.create!(:user_id => alice.id, :name => "Cooking", :rank => 2)
+amy_travel = Bookshelf.create!(:user_id => amy.id, :name => "Time Travel")
+amy_travel = Bookshelf.create!(:user_id => amy.id, :name => "Time Travel")
 
 # Books
 Book.create!(:bookshelf_id => alice_math.id,
@@ -55,18 +68,9 @@ Book.create!(:bookshelf_id => alice_cooking.id,
 # Book.create!(:bookshelf_id => ,
 #   :title => ,
 #   :author => ,
-#   :google_id => 
+#   :google_id => ,
+#   :thumbnail_small => ,
+#   :thumbnail
 # )
 
-# Book.create!(:bookshelf_id => ,
-#   :title => ,
-#   :author => ,
-#   :google_id => 
-# )
-
-# Book.create!(:bookshelf_id => ,
-#   :title => ,
-#   :author => ,
-#   :google_id => 
-# )
 

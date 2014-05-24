@@ -5,6 +5,7 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userShowLibrary: function() {
+    debugger
     var currentUser = JSON.parse($('#bstrapped-current-user').html());
     var shelves = Bookfriends.Collections.shelves =
       new Bookfriends.Collections.Bookshelves([], {

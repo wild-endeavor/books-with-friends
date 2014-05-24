@@ -2,7 +2,7 @@
 <% if (shelves.models.length > 0) { %>
   <ul class="nav nav-pills nav-stacked">
     <% shelves.each( function (shelf) { %>
-      <li class="a-bookshelf-name" data-id="<%= shelf.escape("id") %>"><a href="#/"><%= shelf.escape("name") %></a></li>
+      <li class="a-bookshelf-name" data-id="<%= shelf.escape("id") %>"><a href="#"><%= shelf.escape("name") %></a></li>
     <% }); %>
   </ul>
 <% } %>
