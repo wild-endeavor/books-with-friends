@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   namespace :api, :defaults => { :format => :json } do
     resources :users, :only => [:show] do
-      resources :bookshelves, :only => [:index, :create] do
-        resources :books, :only => [:create]
-      end
+      resources :bookshelves, :only => [:index, :create]
     end
+
+    resources :bookshelves, :only => [:show, :destroy, :update] do
+      resources :books, :only => [:create]
+    end
+
     resources :books, :only => [:destroy]
   end
 

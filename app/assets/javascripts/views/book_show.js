@@ -4,10 +4,10 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
     // this.model (automatically) is a Bookfriends.Models.Book
     this.listenTo(this.model, "sync", this.render);
     this.parentView = options.parentView;
+    this.ownBookCatalog = options.ownBookCatalog;
     this.showAdd = options.showAdd;
     this.showRemove = options.showRemove;
     this.showRequest = options.showRequest;
-    console.log("Book show" + this.showAdd + "||" + this.showRemove);
   },
 
   attributes: function() {
@@ -29,7 +29,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
 
   addBookToShelf: function(event) {
     event.preventDefault();
-    debugger
+    this.parentView.searchHomeView.addToUserLibrary(event, this.model);
   },
 
   template: JST["books/show"],
@@ -37,6 +37,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({
       book: this.model,
+      ownBookCatalog: this.ownBookCatalog,
       showAdd: this.showAdd,
       showRemove: this.showRemove,
       showRequest: this.showRequest

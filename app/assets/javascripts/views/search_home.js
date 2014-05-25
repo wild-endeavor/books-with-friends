@@ -2,11 +2,21 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
 
   template: JST["search/home"],
 
+  populateCatalog: function() {
+    // Populate the catalog of books
+    var catalog = this.bookCatalog = [];
+    this.collection.each(function(shelf){
+      shelf.books().each(function(book) {
+        catalog.push(book.get("google_id"));
+      });
+    });
+  },
+
   initialize: function() {
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
     var shelves = this.collection;
-
-    // this.listenTo(this.collection, "sync", this.startShelf);
+    this.bookCatalog = []; // All the google_ids of books in the catalog
+    this.listenTo(this.collection, "sync", this.populateCatalog);
 
     // Make subview for the sidebar
     var shelfIndexView = new Bookfriends.Views.ShelfIndex({
@@ -97,6 +107,24 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     console.log(this.searchSuggestions);
   },
 
+  addToUserLibrary: function(event, bookModel) {
+    // will be sent from a book show view - should already prevented default
+    var view = this;
+    if (this._activeShelf === undefined) {
+      console.log("Please select a bookshelf to add to first.");
+      return;
+      // Maybe throw "No bookshelves";
+    }
+    bookModel.set("bookshelf_id", this._activeShelf.id);
+    bookModel.save({},{
+      success: function(model, response) {
+        // this manual push is redundant, the books re-render is triggering before the
+        // fetch here (which also updates the catalog).
+        view.bookCatalog.push(model.get("google_id"));
+        view.collection.fetch();
+      }
+    });
+  },
 
   // shelf index view event will trigger changes to the active shelf
   // through this function
@@ -108,6 +136,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.hasSearched = true;
     var shelfShowView = new Bookfriends.Views.ShelfShow({
       collection: this.collection,
+      searchHomeView: this,
       model: this.searchShelf,
       showAdd: true,
       showRemove: false,
@@ -128,7 +157,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
 
     this.attachSubviews();
     
-    console.log(this.searchSuggestions);
     if (!this.initializedBloodhound) {
       this.startBloodhound();
       this.initializedBloodhound = true;
@@ -178,7 +206,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       success: this.handleSearchResponse.bind(this)
     });
   },
-
 
   handleSearchResponse: function(response) {
     var parsedBooks = this.extractBooksData(response);

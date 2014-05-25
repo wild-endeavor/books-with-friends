@@ -1,10 +1,16 @@
 
 
-Ask about the Heroku logs.
-
-Verify that merely preventing default is sufficient when changing active bookshelves in the search view.
+Ask about the Heroku logs.  Also can't seem to rake assets:precompile when pushing to Heroku.
 
 Figure out why adding a bookshelf is triggering a sync event.
+
+Clicking on the main logo tries to relaunch backbone... why is it not refreshing instead?
+
+Ask CJ about the same origin policy
+
+
+Typeahead doesn't work after doing one search
+
 
 
 

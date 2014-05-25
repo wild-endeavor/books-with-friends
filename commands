@@ -1,0 +1,1 @@
+rake db:seed:dump FILE=db/gem_dump.rb

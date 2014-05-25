@@ -1,6 +1,10 @@
 window.Bookfriends.Models.Book = Backbone.Model.extend({
-  urlRoot: "/api/books"
-
-  
+  url: function() {
+    if (this.isNew()) {
+      return "/api/bookshelves/" + this.escape("bookshelf_id") + "/books";
+    } else {
+      return "/api/books/" + this.id;
+    }
+  }
 
 });

@@ -23,10 +23,10 @@ window.shelf_index = this.collection;
   },
 
   handleSync: function(collection) {
-    if (!collection.models) { return; } // when adding, this runs for some reason.
+    if (!collection.models) { return; } // when adding a shelf, this runs for some reason.
     if (collection.models.length > 0) {
-      this._activeShelf = collection.models[0];
-      this.setActiveShelf()
+      this._activeShelf = (this._activeShelf || collection.models[0]);
+      this.setActiveShelf();
     }
   },
 

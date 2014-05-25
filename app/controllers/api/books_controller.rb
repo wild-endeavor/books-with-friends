@@ -4,6 +4,13 @@ class Api::BooksController < ApplicationController
   end
 
   def create
+    p book_params
+    book = Book.new(book_params)
+    if book.save
+      render :json => book
+    else
+      render :json => book.error.full_messages, :status => :unprocessable_entity
+    end
   end
 
   def update

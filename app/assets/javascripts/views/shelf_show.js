@@ -10,6 +10,7 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.books(), "add", this.addBook);
     this.listenTo(this.model.books(), "remove", this.removeBook);
 
+    this.searchHomeView = options.searchHomeView;
     this.showAdd = options.showAdd;
     this.showRemove = options.showRemove;
     this.showRequest = options.showRequest;
@@ -20,6 +21,7 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
       var bookShowView = new Bookfriends.Views.BookShow({
         model: book,
         parentView: parentView,
+        ownBookCatalog: parentView.bookCatalog,
         showAdd: parentView.showAdd,
         showRemove: parentView.showRemove,
         showRequest: parentView.showRequest
@@ -40,6 +42,7 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     var bookShowView = new Bookfriends.Views.BookShow({
       model: book,
       parentView: this,
+      ownBookCatalog: this.searchHomeView.bookCatalog,
       showAdd: this.showAdd,
       showRemove: this.showRemove,
       showRequest: this.showRequest
