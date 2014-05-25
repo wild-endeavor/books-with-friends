@@ -20,6 +20,8 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       name: "Search Results"
     });
 
+    window.sh_view = this;
+
     // Active shelf object into which to add new books
     this._activeShelf;
 
@@ -32,14 +34,19 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     // against google API search results.
 
     // Setup for typeahead-bloodhound and the google suggestion to work.
-    this.searchSuggestions = [];
+    this.searchSuggestions = [
+      "math",
+      "apple",
+      "fuji"
+    ];
     this.initializedBloodhound = false;
+
     this.cbTemp = function() {
       var args = [].slice.call(arguments);
       if ($.isArray(args[0])) {
         if ($.isArray(args[0][1]) && args[0][1].length > 0) {
           this.searchSuggestions = args[0][1].map( function(ele) { return ele[0]; });
-          this.startBloodhound();      
+          this.loadIntoBloodhound();      
         }
       }
       console.log(this.searchSuggestions);
@@ -47,43 +54,45 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.suggestCallBack = this.cbTemp.bind(this);
   },
 
-  resetBloodhound: function() {
-    this.engine.clear();
+  loadIntoBloodhound: function() {
+    // this.engine.clear();
     this.engine.add($.map(this.searchSuggestions, function(term) {
-      return { value: term };
+      return { val: term };
     }));
   },
 
   startBloodhound: function() {
-    if (this.initializedBloodhound) {
-      this.resetBloodhound();
-      return;
-    }
-    this.initializedBloodhound = true;
+    // this.searchSuggestions = [
+    //       "math",
+    //       "apple",
+    //       "fuji"
+    //     ];
 
     this.engine = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       // `states` is an array of state names defined in "The Basics"
-      local: $.map(this.searchSuggestions, function(term) { return { value: term }; })
+      local: $.map(this.searchSuggestions, function(state) { return { value: state }; })
     });
- 
+     
     // kicks off the loading/processing of `local` and `prefetch`
     this.engine.initialize();
- 
-    $('#bloodhound-search-area .typeahead').typeahead({
+     
+    this.$('#bloodhound-search-area .typeahead').typeahead({
       hint: true,
       highlight: true,
       minLength: 1
     },
     {
-      name: 'search_suggestions',
+      name: 'states',
       displayKey: 'value',
       // `ttAdapter` wraps the suggestion engine in an adapter that
       // is compatible with the typeahead jQuery plugin
       source: this.engine.ttAdapter()
     });
+
   },
+
 
   // shelf index view event will trigger changes to the active shelf
   // through this function
@@ -95,7 +104,10 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.hasSearched = true;
     var shelfShowView = new Bookfriends.Views.ShelfShow({
       collection: this.collection,
-      model: this.searchShelf
+      model: this.searchShelf,
+      showAdd: true,
+      showRemove: false,
+      showRequest: false
     });
     this.addSubview("#main-search-results", shelfShowView);
     this.render();
@@ -111,6 +123,11 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.$el.html(renderedContent);
 
     this.attachSubviews();
+    
+    if (!this.initializedBloodhound) {
+      this.startBloodhound();
+      this.initializedBloodhound = true;
+    }
 
     return this;
   },

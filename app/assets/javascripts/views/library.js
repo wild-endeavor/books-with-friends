@@ -28,12 +28,6 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     // this.changeActiveShelf(shelves.models[0] || new Bookfriends.Models.Bookshelf());
   },
 
-  // startShelf: function() {
-  //   if (this.collection.models[0]) {
-  //     this.changeActiveShelf(this.collection.models[0]);
-  //   }
-  // },
-
   changeActiveShelf: function(newShelf) {
     var shelfSubviews = this.subviews("#shelf-show");
     if (shelfSubviews && shelfSubviews.length > 0) {
@@ -43,7 +37,10 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
 
     var shelfShowView = new Bookfriends.Views.ShelfShow({
       collection: this.collection,
-      model: newShelf
+      model: newShelf,
+      showAdd: false,
+      showRemove: true,
+      showRequest: false
     });
     this.addSubview("#shelf-show", shelfShowView);
   },

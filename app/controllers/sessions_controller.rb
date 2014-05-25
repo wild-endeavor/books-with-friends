@@ -4,7 +4,15 @@ class SessionsController < ApplicationController
 
   def new
     @user = User.new
+    @guest_logins = {
+      "Alice" => "alice@swift.com",
+      "Bob" => "bob@swift.com",
+      "Eve" => "eve@swift.com",
+      "Amy" => "amy@tardis.com",
+      "Rory" => "rory@taris.com"
+    }
   end
+
 
   def create
     @user = User.find_by_credentials(

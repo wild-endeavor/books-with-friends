@@ -18,10 +18,14 @@ Friendship.create!(:source_friend => rory.id, :dest_friend => bob.id)
 
 
 # Bookshelves
-alice_math = Bookshelf.create!(:user_id => alice.id, :name => "Math", :rank => 1)
-alice_cooking = Bookshelf.create!(:user_id => alice.id, :name => "Cooking", :rank => 2)
+alice_math = Bookshelf.create!(:user_id => alice.id, :name => "Math")
+alice_cooking = Bookshelf.create!(:user_id => alice.id, :name => "Cooking")
+alice_naval_history = Bookshelf.create!(:user_id => alice.id, :name => "Naval History")
 amy_travel = Bookshelf.create!(:user_id => amy.id, :name => "Time Travel")
-amy_travel = Bookshelf.create!(:user_id => amy.id, :name => "Time Travel")
+amy_travel = Bookshelf.create!(:user_id => amy.id, :name => "Roman History")
+rory_london = Bookshelf.create!(:user_id => rory.id, :name => "London")
+rory_medical = Bookshelf.create!(:user_id => rory.id, :name => "Medical")
+
 
 # Books
 Book.create!(:bookshelf_id => alice_math.id,

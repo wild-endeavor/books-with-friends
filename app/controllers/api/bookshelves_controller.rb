@@ -9,7 +9,7 @@ class Api::BookshelvesController < ApplicationController
   def create
     user = User.find(params[:user_id])
     last_bookshelf = user.bookshelves.sort_by(&:rank).last
-    rank = last_bookshelf.rank + 1
+    rank = last_bookshelf ? last_bookshelf.rank + 1 : 1
     shelf = Bookshelf.new(:user_id => params[:user_id], :rank => rank, :name => params[:name])
     if shelf.save
       render :json => shelf

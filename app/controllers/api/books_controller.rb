@@ -10,6 +10,14 @@ class Api::BooksController < ApplicationController
   end
 
   def destroy
+    book = Book.find(params[:id])
+    if book.owner != current_user
+      render :json => ["You are not the owner of this book."], :status => :unprocessable_entity
+    elsif book.destroy
+      render :json => book
+    else
+      render :json => book.errors.full_messages
+    end
   end
 
   private

@@ -3,4 +3,15 @@
 <%= book.escape("author") %>
 Google ID:<%= book.escape("google_id") %>
 
+<% if (showRemove) { %>
+<button type="button" class="close remove-owned-book">&times;</button>
+<% } %>
+<% if (showAdd) { %>
+  <button type="button"
+      class="add-book-to-shelf close btn btn-xs">
+        <span class="glyphicon glyphicon-plus"></span>
+  </button>
+<% } %>
+
+
 
