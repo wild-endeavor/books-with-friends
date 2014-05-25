@@ -32,6 +32,8 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     // that contains not only all your books but also all your friends books.
     // Do this in order to match up all the books you and your friends have
     // against google API search results.
+    // TODO: Use the titles of all the books as the initial search suggestion
+    // instead of the fake stuff below.
 
     // Setup for typeahead-bloodhound and the google suggestion to work.
     this.searchSuggestions = [
@@ -49,24 +51,24 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
           this.loadIntoBloodhound();      
         }
       }
-      console.log(this.searchSuggestions);
+      // console.log(this.searchSuggestions);
     };
     this.suggestCallBack = this.cbTemp.bind(this);
   },
 
   loadIntoBloodhound: function() {
-    // this.engine.clear();
-    this.engine.add($.map(this.searchSuggestions, function(term) {
-      return { val: term };
-    }));
+    console.log("Adding to suggestions: ");
+    console.log(this.searchSuggestions);
+    this.engine.clear();
+    this.engine.add(
+      $.map(this.searchSuggestions, function(term) {
+          return { value: term };
+      })
+    );
   },
 
   startBloodhound: function() {
-    // this.searchSuggestions = [
-    //       "math",
-    //       "apple",
-    //       "fuji"
-    //     ];
+    console.log(this.searchSuggestions);
 
     this.engine = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
@@ -77,7 +79,8 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
      
     // kicks off the loading/processing of `local` and `prefetch`
     this.engine.initialize();
-     
+
+    // Look for it inside the element since it's not in the DOM yet.     
     this.$('#bloodhound-search-area .typeahead').typeahead({
       hint: true,
       highlight: true,
@@ -91,6 +94,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       source: this.engine.ttAdapter()
     });
 
+    console.log(this.searchSuggestions);
   },
 
 
@@ -124,10 +128,12 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
 
     this.attachSubviews();
     
+    console.log(this.searchSuggestions);
     if (!this.initializedBloodhound) {
       this.startBloodhound();
       this.initializedBloodhound = true;
     }
+    console.log(this.searchSuggestions);
 
     return this;
   },
