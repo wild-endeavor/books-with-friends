@@ -22,6 +22,7 @@ Start borrow request modeling.
       - source, dest.
       - book id number
       - request date, approve date, delivery date, due date
+      - message comment
       - status: pending, approved, rejected
 
     Form to request - pop-up/modal maybe.

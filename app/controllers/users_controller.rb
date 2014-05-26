@@ -23,9 +23,17 @@ class UsersController < ApplicationController
   def show
     if params.include?(:id)
       @user = User.find(params[:id])
+      if current_user.id != @user.id
+        render :friend_show
+      end
     else
       redirect_to user_url(current_user)
     end
+
+
+    # if the user requested is the current user, then return current page,
+    # else if friends, then return a separate show page,
+    #     - will need to know the current_user, and be able to log controller
   end
 
   private

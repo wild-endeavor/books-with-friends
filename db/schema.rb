@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523204915) do
+ActiveRecord::Schema.define(version: 20140526161046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,20 @@ ActiveRecord::Schema.define(version: 20140523204915) do
   create_table "friendships", force: true do |t|
     t.integer "source_friend", null: false
     t.integer "dest_friend",   null: false
+  end
+
+  create_table "rentals", force: true do |t|
+    t.integer  "source_user",   null: false
+    t.integer  "dest_user",     null: false
+    t.date     "request_date",  null: false
+    t.date     "approve_date"
+    t.date     "delivery_date"
+    t.date     "due_date"
+    t.string   "status",        null: false
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "google_id"
   end
 
   create_table "users", force: true do |t|

@@ -1,0 +1,13 @@
+
+
+<%= @user.email %>'s Profile.
+
+This person's bookshelves
+<% @user.bookshelves.each do |shelf| %>
+<%= shelf.name %><br>
+<% end %>
+
+<br>
+This person's books:
+<%= @user.books %>
+
