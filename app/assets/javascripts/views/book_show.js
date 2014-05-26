@@ -29,7 +29,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
 
   addBookToShelf: function(event) {
     event.preventDefault();
-    this.parentView.searchHomeView.addToUserLibrary(event, this.model);
+    this.parentView.parentView.addToUserLibrary(event, this.model);
   },
 
   template: JST["books/show"],
@@ -37,7 +37,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({
       book: this.model,
-      ownBookCatalog: this.ownBookCatalog,
+      ownBookCatalog: this.parentView.parentView.bookCatalog,
       showAdd: this.showAdd,
       showRemove: this.showRemove,
       showRequest: this.showRequest

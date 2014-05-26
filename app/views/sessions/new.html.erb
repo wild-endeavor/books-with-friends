@@ -1,6 +1,6 @@
 <h1>Sign In</h1>
 
-<form action="<%= session_url %>" method="post">
+<form id="new-session-login" action="<%= session_url %>" method="post">
 
 <%= auth_token_helper %>
 
@@ -28,12 +28,17 @@
   Employers: Please use one of these guest logins:
   <br>
   <% @guest_logins.each do |key, value| %>
-    <button class="btn btn-info btn-sm"
+    <button class="btn btn-info btn-sm guest-login"
     data-id="<%= value%>"><%= key %></button>
   <% end %>
 </div>
 
 <script type="text/javascript">
-
+$("button.guest-login").click(function(event) {
+  event.preventDefault();
+  $("#user_email").val($(event.target).attr("data-id"));
+  $("#user_password").val("password");
+  $("#new-session-login").submit();
+});
 </script>
 

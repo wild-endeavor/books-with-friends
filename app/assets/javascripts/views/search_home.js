@@ -108,7 +108,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   },
 
   addToUserLibrary: function(event, bookModel) {
-    // will be sent from a book show view - should already prevented default
+    // will be sent from a book show view - already prevented default
     var view = this;
     if (this._activeShelf === undefined) {
       console.log("Please select a bookshelf to add to first.");
@@ -136,7 +136,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.hasSearched = true;
     var shelfShowView = new Bookfriends.Views.ShelfShow({
       collection: this.collection,
-      searchHomeView: this,
+      parentView: this,
       model: this.searchShelf,
       showAdd: true,
       showRemove: false,
@@ -169,6 +169,9 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   keyUpHandler: function(event) {
     if (event.keyCode === 13) {   // if the user hits enter
       this.performSearch(event);
+      return;
+    }
+    if (event.keyCode === 8) {    // do nothing if backspace
       return;
     }
 

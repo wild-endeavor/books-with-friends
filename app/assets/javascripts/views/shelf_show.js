@@ -10,23 +10,23 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.books(), "add", this.addBook);
     this.listenTo(this.model.books(), "remove", this.removeBook);
 
-    this.searchHomeView = options.searchHomeView;
+    this.parentView = options.parentView;
     this.showAdd = options.showAdd;
     this.showRemove = options.showRemove;
     this.showRequest = options.showRequest;
 
     // Add subviews for books
-    var parentView = this;
+    var view = this;
     this.model.books().each(function(book) {
       var bookShowView = new Bookfriends.Views.BookShow({
         model: book,
-        parentView: parentView,
-        ownBookCatalog: parentView.bookCatalog,
-        showAdd: parentView.showAdd,
-        showRemove: parentView.showRemove,
-        showRequest: parentView.showRequest
+        parentView: view,
+        ownBookCatalog: view.parentView.bookCatalog,
+        showAdd: view.showAdd,
+        showRemove: view.showRemove,
+        showRequest: view.showRequest
       });
-      parentView.addSubview(".book-container", bookShowView);
+      view.addSubview(".book-container", bookShowView);
     });
 
   },
@@ -42,7 +42,7 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     var bookShowView = new Bookfriends.Views.BookShow({
       model: book,
       parentView: this,
-      ownBookCatalog: this.searchHomeView.bookCatalog,
+      ownBookCatalog: this.parentView.bookCatalog,
       showAdd: this.showAdd,
       showRemove: this.showRemove,
       showRequest: this.showRequest

@@ -9,7 +9,7 @@ class Api::BooksController < ApplicationController
     if book.save
       render :json => book
     else
-      render :json => book.error.full_messages, :status => :unprocessable_entity
+      render :json => book.errors.full_messages, :status => :unprocessable_entity
     end
   end
 

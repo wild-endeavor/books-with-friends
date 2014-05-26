@@ -6,10 +6,10 @@ class SessionsController < ApplicationController
     @user = User.new
     @guest_logins = {
       "Alice" => "alice@swift.com",
-      "Bob" => "bob@swift.com",
       "Eve" => "eve@swift.com",
+      "Bob" => "bob@swift.com",
       "Amy" => "amy@tardis.com",
-      "Rory" => "rory@taris.com"
+      "Rory" => "rory@tardis.com"
     }
   end
 

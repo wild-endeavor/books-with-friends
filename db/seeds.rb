@@ -4,7 +4,7 @@ alice = User.create!(:email => "alice@swift.com", :password => "password")
 bob = User.create!(:email => "bob@swift.com", :password => "password")
 eve = User.create!(:email => "eve@swift.com", :password => "password")
 amy = User.create!(:email => "amy@tardis.com", :password => "password")
-rory = User.create!(:email => "rory@taris.com", :password => "password")
+rory = User.create!(:email => "rory@tardis.com", :password => "password")
 
 # Friendships - two by two
 Friendship.create!(:source_friend => alice.id, :dest_friend => bob.id)

@@ -11,10 +11,20 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
 
   template: JST["library"],
 
+  populateCatalog: function() {
+    // Populate the catalog of books
+    var catalog = this.bookCatalog = [];
+    this.collection.each(function(shelf){
+      shelf.books().each(function(book) {
+        catalog.push(book.get("google_id"));
+      });
+    });
+  },
+
   initialize: function(options) {
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
-    // this.listenTo(this.collection, "sync", this.startShelf)
-
+    this.bookCatalog = []; // All the google_ids of books in the catalog
+    this.listenTo(this.collection, "sync", this.populateCatalog);
     var shelves = this.collection;
 
     // Make subview for the sidebar
@@ -23,9 +33,6 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
       parentView: this
     });
     this.addSubview("#bookshelf-list", shelfIndexView);
-
-    // Make a subview for the main shelf show area
-    // this.changeActiveShelf(shelves.models[0] || new Bookfriends.Models.Bookshelf());
   },
 
   changeActiveShelf: function(newShelf) {
@@ -38,6 +45,7 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     var shelfShowView = new Bookfriends.Views.ShelfShow({
       collection: this.collection,
       model: newShelf,
+      parentView: this,
       showAdd: false,
       showRemove: true,
       showRequest: false

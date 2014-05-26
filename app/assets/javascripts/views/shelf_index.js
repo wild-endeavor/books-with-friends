@@ -4,7 +4,6 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
     this.parentView = options.parentView; // this is the parent of this entire view
 
-window.shelf_index = this.collection;
     this.listenTo(this.collection, "sync", this.render);
     this.listenTo(this.collection, "sync", this.handleSync);
     this._activeShelf;
