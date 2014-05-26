@@ -7,17 +7,19 @@
   </ul>
 <% } %>
 
-<form id="new-bookshelf-form">
-  <div class="input-group-sm">
-    <input
-      type="text"
-      style="display:none"
-      name="bookshelf[name]"
-      id="new-bookshelf"
-      class="form-control"
-      placeholder="New bookshelf name..."
-    >
-  </div>
-</form>
-<button class="btn btn-default btn-xs add-bookshelf"><span class="glyphicon glyphicon-plus"> Bookshelf</button>
+<% if (showAddShelf) { %>
+  <form id="new-bookshelf-form">
+    <div class="input-group-sm">
+      <input
+        type="text"
+        style="display:none"
+        name="bookshelf[name]"
+        id="new-bookshelf"
+        class="form-control"
+        placeholder="New bookshelf name..."
+      >
+    </div>
+  </form>
+  <button class="btn btn-default btn-xs add-bookshelf"><span class="glyphicon glyphicon-plus"> Bookshelf</button>
+<% } %>
 

@@ -19,7 +19,8 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
 
   events: {
     "click button.remove-owned-book": "deleteBook",
-    "click button.add-book-to-shelf": "addBookToShelf"
+    "click button.add-book-to-shelf": "addBookToShelf",
+    "click button.request-book": "requestBook"
   },
 
   deleteBook: function(event) {
@@ -30,6 +31,11 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
   addBookToShelf: function(event) {
     event.preventDefault();
     this.parentView.parentView.addToUserLibrary(event, this.model);
+  },
+
+  requestBook: function(event) {
+    event.preventDefault();
+    this.parentView.parentView.requestBook(event, this.model);
   },
 
   template: JST["books/show"],

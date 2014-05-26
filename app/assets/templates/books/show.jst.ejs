@@ -20,5 +20,7 @@ Google ID:<%= book.escape("google_id") %>
   <% } %>
 <% } %>
 
-
+<% if (showRequest) { %>
+  <button type="button" class="close request-book">R</button>
+<% } %>
 

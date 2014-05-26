@@ -3,6 +3,7 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
   initialize: function(options) {
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
     this.parentView = options.parentView; // this is the parent of this entire view
+    this.showAdd = options.showAdd;
 
     this.listenTo(this.collection, "sync", this.render);
     this.listenTo(this.collection, "sync", this.handleSync);
@@ -21,10 +22,9 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
     }
   },
 
-  handleSync: function(collection) {
-    if (!collection.models) { return; } // when adding a shelf, this runs for some reason.
-    if (collection.models.length > 0) {
-      this._activeShelf = (this._activeShelf || collection.models[0]);
+  handleSync: function() {
+    if (this.collection.models.length > 0) {
+      this._activeShelf = (this._activeShelf || this.collection.models[0]);
       this.setActiveShelf();
     }
   },
@@ -71,7 +71,8 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
 
   render: function() {
     var renderedContent = this.template({
-      shelves: this.collection
+      shelves: this.collection,
+      showAddShelf: this.showAdd
     });
     this.$el.html(renderedContent);
     this.setActiveShelf();

@@ -1,36 +1,26 @@
 
 
-Ask about the Heroku logs.  Also can't seem to rake assets:precompile when pushing to Heroku.
-
-Figure out why adding a bookshelf is triggering a sync event.
-
 Clicking on the main logo tries to relaunch backbone... why is it not refreshing instead?
 
 Ask CJ about the same origin policy
-
 
 Typeahead doesn't work after doing one search
 
 After adding a bookshelf, set the focus to the search box
 
 
-
 Monday
-Be able to view friends libraries, while keeping track of your own books.
-Start borrow request modeling.
-    Model for lending
-      - source, dest.
-      - book id number
-      - request date, approve date, delivery date, due date
-      - message comment
-      - status: pending, approved, rejected
+  Be able to view friends libraries, while keeping track of your own books.
 
+  Rental request modeling
     Form to request - pop-up/modal maybe.
       basically just start date and duration.
 
     Lending view
       Be able to view lent books, receive them back, pending requests, change duration, approve them.
       be able to view your request history.
+
+  Make the friends view better looking.
 
 
 Tuesday

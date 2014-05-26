@@ -24,12 +24,20 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
   initialize: function(options) {
     // this.collection (automatically) is a Bookfriends.Collections.Bookshelves
     this.bookCatalog = []; // All the google_ids of books in the catalog
+    this.rentalRequests = [];
+    this.friendView = options.friendView;
+    this.friendId = options.friendId;
+    this.friendShelves = options.friendShelves;
+    this.currentUser = options.currentUser;
+
+
     this.listenTo(this.collection, "sync", this.populateCatalog);
-    var shelves = this.collection;
+    if (this.currentUser) this.listenTo(this.currentUser, "sync", this.render);
 
     // Make subview for the sidebar
     var shelfIndexView = new Bookfriends.Views.ShelfIndex({
-      collection: shelves,
+      collection: this.friendShelves || this.collection,
+      showAdd: this.friendShelves ? false : true,
       parentView: this
     });
     this.addSubview("#bookshelf-list", shelfIndexView);
@@ -43,19 +51,55 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     }
 
     var shelfShowView = new Bookfriends.Views.ShelfShow({
-      collection: this.collection,
       model: newShelf,
       parentView: this,
       showAdd: false,
-      showRemove: true,
-      showRequest: false
+      showRemove: this.friendView ? false : true,
+      showRequest: this.friendView ? true : false
     });
     this.addSubview("#shelf-show", shelfShowView);
   },
 
+  requestBook: function(event, model) {
+    var view = this;
+    var headerContent = JST["books/rental"]({
+      book: model,
+      friend: this.friend
+    });
+
+    $("#modal-book-header").html(headerContent);
+    $("#book-request-modal").modal("show");
+    // this.saveRentalRequest(event, model);
+  },
+
+  saveRentalRequest: function(event, model) {
+    var view = this;
+    var rental = new Bookfriends.Models.Rental({
+      dest_user: parseInt(this.friendId),
+      google_id: model.escape("google_id")
+    });
+    // rental.save({}, {
+    //   success: function(model, response) {
+    //     console.log("successfully saved rental request");
+    //     view.rentalRequests.push(model.escape("google_id"));
+    //   }
+    // });
+  },
+
   render: function() {
+    var shelfIndexTitle = this.friendView ? "Your friend's shelves" : "Your Bookshelves";
+    if (this.currentUser) {
+      var friendId = this.friendId;
+      this.friend = this.currentUser.friends().find(
+        function(f) { return f.id === parseInt(friendId); }
+      );
+      if (this.friend) {
+        shelfIndexTitle = friend.escape("email") + "'s Bookshelves";
+      }
+    }
+
     var renderedContent = this.template({
-      shelves: this.collection
+      shelfIndexTitle: shelfIndexTitle
     });
     this.$el.html(renderedContent);
     this.attachSubviews();

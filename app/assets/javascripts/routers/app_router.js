@@ -14,10 +14,9 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       });
     shelves.fetch();
 
-    // TODO - Make the backend return an empty array if the user
-    //        does not have any bookshelves
-
     var view = new Bookfriends.Views.Library({
+      friendView: false,
+      friendShelves: undefined,
       collection: shelves
     });
 
@@ -45,8 +44,35 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     this._swapView(view, "#main-content");
   },
 
-  showFriendLibrary: function(id) {
+  showFriendLibrary: function(friendId) {
+    var cu = JSON.parse($('#bstrapped-current-user').html());
+    var currentUser = new Bookfriends.Models.User({ id: cu.current_user_id });
+    currentUser.fetch();
+    Bookfriends.Models.current_user = currentUser;
+    window.showf = this;
 
+    var yourShelves = Bookfriends.Collections.shelves =
+      new Bookfriends.Collections.Bookshelves([], {
+        userId: cu.current_user_id
+      });
+    yourShelves.fetch();
+
+    var friendShelves =
+      new Bookfriends.Collections.Bookshelves([], {
+        userId: friendId
+      });
+    friendShelves.fetch();
+
+    var view = new Bookfriends.Views.Library({
+      friendShelves: friendShelves,
+      collection: yourShelves,
+      friendView: true,
+      friendId: friendId,
+      currentUser: currentUser
+    });
+    window.lib_view = view;
+
+    this._swapView(view, "#main-content");
   },
 
   userShowSearch: function() {

@@ -2,5 +2,5 @@
 <h4>Friends</h4>
 
 <% friends.each(function(friend) { %>
-  <%= friend.escape("email") %>
+  <a href="#friendShow/<%= friend.id %>"><%= friend.escape("email") %></a>
 <% }) %>
