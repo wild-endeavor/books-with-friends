@@ -1,6 +1,8 @@
 window.Bookfriends.Models.User = Backbone.Model.extend({
+  urlRoot: "/api/users",
+
   url: function () {
-    return "/api/users/" + this.id;
+    return "/api/users/";
   },
 
   friends: function() {
@@ -8,13 +10,14 @@ window.Bookfriends.Models.User = Backbone.Model.extend({
       this._friends = new Bookfriends.Collections.Friends([],{
         sourceFriend: this
       });
-      return this._friends;
     }
+    return this._friends;
   },
 
 
   parse: function(jsonResponse) {
-    debugger
+    this.friends().set(jsonResponse.friends, {parse: true});
+    delete jsonResponse.friends;
     return jsonResponse;
   }
 })

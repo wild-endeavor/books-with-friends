@@ -1,11 +1,13 @@
 <script type="application/json" id="bstrapped-current-user">
-  { "current_user_id": <%= current_user.id %> }
+  {
+    "current_user_id": <%= current_user.id %>,
+    "url_user_id": <%= @user.id %>
+  }
 </script>
 
 
 <div id="main-content">
 </div>
-
 
 <script>
   $(Bookfriends.initialize);
