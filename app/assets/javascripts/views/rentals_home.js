@@ -4,20 +4,44 @@ window.Bookfriends.Views.RentalsHome = Backbone.CompositeView.extend({
   initialize: function(options) {
     // Application-wide collections
     this.listenTo(Bookfriends.Collections.rentalsMade, "sync", this.render);
-    this.listenTo(Bookfriends.Collections.rentalsReceived, "sync", this.render);
+    this.listenTo(Bookfriends.Collections.rentalsReceived, "sync change", this.render);
     window.rental_home_view = this;
   },
 
   events: {
     "click button.mark-as-approved": "markAsApproved",
-    "click button.mark-as-delivered": "markAsDelivered"
+    "click button.mark-as-delivered": "markAsDelivered",
+    "click button.mark-as-returned": "markAsReturned"
   },
 
   markAsApproved: function(event) {
     event.preventDefault();
     var rentalId = parseInt($(event.target).parent().attr("data-id"));
-    
-    debugger
+      var rental = Bookfriends.Collections.rentalsReceived.findWhere({
+        id: rentalId
+      });
+    rental.set("status", "A");
+    rental.save();
+  },
+
+  markAsDelivered: function(event) {
+    event.preventDefault();
+    var rentalId = parseInt($(event.target).parent().attr("data-id"));
+    var rental = Bookfriends.Collections.rentalsReceived.findWhere({
+      id: rentalId
+    });
+    rental.set("status", "D");
+    rental.save();
+  },
+
+  markAsReturned: function(event) {
+    event.preventDefault();
+    var rentalId = parseInt($(event.target).parent().attr("data-id"));
+    var rental = Bookfriends.Collections.rentalsReceived.findWhere({
+      id: rentalId
+    });
+    rental.set("status", "R");
+    rental.save();
   },
 
   render: function() {
@@ -78,11 +102,19 @@ window.Bookfriends.Views.RentalsHome = Backbone.CompositeView.extend({
       }
     );
 
+    // Books that you have lent out - Delivered
+    var lentBooks = Bookfriends.Collections.rentalsReceived.filter(
+      function(rental) {
+        return rental.get("status") === "D";
+      }
+    );
+
     var renderedContent = this.template({
       pendingRequests: pendingRequests,
       borrowedBooks: borrowedBooks,
       rentalHistory: rentalHistory,
-      actionNeeded: actionNeeded
+      actionNeeded: actionNeeded,
+      lentBooks: lentBooks
     });
 
     this.$el.html(renderedContent);

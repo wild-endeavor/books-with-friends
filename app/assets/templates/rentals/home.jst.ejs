@@ -51,7 +51,7 @@
     <ul>
       <% _(actionNeeded).each( function(request) { %>
         <li data-id="<%= request.id %>" class="request-needing-action">
-          Request By: <%= request.escape("dest_email") %> made on <%= request.escape("created_at") %>
+          Request By: <%= request.escape("source_email") %> made on <%= request.escape("created_at") %>
           <br>
           <% if (request.get("status") === "N") { %>
             <button class="mark-as-approved btn btn-info btn-xs">Approve</button>
@@ -71,9 +71,23 @@
 </div>
 
 <div>
-  <h4>Borrowing History</h4>
-  <% if (rentalHistory.length > 0) { %>
+  <h4>What You've Lent Out</h4>
+  <% if (lentBooks.length > 0) { %>
     <ul>
+      <% _(lentBooks).each( function(request) { %>
+        <li data-id="<%= request.id %>" class="request-needing-action">
+          Borrowed By: <%= request.escape("source_email") %>
+          <br>
+          Due Date: <%= request.escape("due_date") %>
+          <button class="mark-as-returned btn btn-info btn-xs">Got it back!</button>
+          <br>
+          <%= request.escape("title") %>
+          <%= request.escape("author") %>
+          <img src='<%= request.escape("thumbnail_small") %>'>
+        </li>
+      <% }); %>
     </ul>
+  <% } else { %>
+    Your friends have nothing they want from you.  Buy some books!  Then add them here!
   <% } %>
-<div>
+</div>

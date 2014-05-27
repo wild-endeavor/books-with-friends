@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
 
     resources :rentals, :only => [:index, :update] # listing all your rentals (both ways) and updating statuses
+    resources :rentals_received, :only => [:index, :update]
 
     resources :books, :only => [:destroy]
 

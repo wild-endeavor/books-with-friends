@@ -28,7 +28,7 @@ class Rental < ActiveRecord::Base
   )
 
   def book_is_available
-    if self.book.available == "F"
+    if self.status == "N" && self.book.available == "F"
       errors.add(:book, "The book is not available.")
     end
   end

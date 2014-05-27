@@ -115,22 +115,10 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     Bookfriends.Collections.myShelves.fetch();
 
     // Store all rental requests you've made and received
-    var tempRequests = new Bookfriends.Collections.Rentals();
     Bookfriends.Collections.rentalsMade = new Bookfriends.Collections.Rentals();
-    Bookfriends.Collections.rentalsReceived = new Bookfriends.Collections.Rentals();
-    tempRequests.fetch({
-      success: function() {
-        // The use of these pseudo-collections is slightly awkward - have to make sure
-        // they are never actually synced with the db, which would pull _all_ the requests
-        // Maybe try to freeze them somehow?
-        // Manually trigger sync for now
-        Bookfriends.Collections.rentalsMade.set(tempRequests.where({source_user: userId}));
-        Bookfriends.Collections.rentalsMade.trigger("sync");
-        Bookfriends.Collections.rentalsReceived.set(tempRequests.where({dest_user: userId}));
-        Bookfriends.Collections.rentalsReceived.trigger("sync");
-        tempRequests = undefined;
-      }
-    });
+    Bookfriends.Collections.rentalsMade.fetch();
+    Bookfriends.Collections.rentalsReceived = new Bookfriends.Collections.RentalsReceived();
+    Bookfriends.Collections.rentalsReceived.fetch();
 
     // Store all of your friends books as a hash of google_id to user id
     Bookfriends.Collections.friendsBooks = {};
