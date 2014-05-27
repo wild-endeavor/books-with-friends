@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery.serializejson
 //= require typeahead.bundle
-//= require turbolinks
 //= require bootstrap
 //= require underscore
 //= require backbone

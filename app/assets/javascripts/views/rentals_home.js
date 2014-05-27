@@ -8,7 +8,43 @@ window.Bookfriends.Views.RentalsHome = Backbone.CompositeView.extend({
     window.rental_home_view = this;
   },
 
+  events: {
+    "click button.mark-as-approved": "markAsApproved",
+    "click button.mark-as-delivered": "markAsDelivered"
+  },
+
+  markAsApproved: function(event) {
+    event.preventDefault();
+    var rentalId = parseInt($(event.target).parent().attr("data-id"));
+    
+    debugger
+  },
+
   render: function() {
+    // What the rental object should look like:
+      // {
+      //   "source_user": 5,
+      //   "dest_user": 3,
+      //   "approve_date": null,
+      //   "delivery_date": null,
+      //   "due_date": "2014-06-16",
+      //   "status": "N",
+      //   "message": "    ",
+      //   "created_at": "2014-05-26T22:31:59.875Z",
+      //   "updated_at": "2014-05-26T22:31:59.875Z",
+      //   "google_id": "OXAEg36BsfoC",
+      //   "book_id": 18,
+      //   "id": 3,
+      //   "title": "Title Text",
+      //   "author": "John Smith",
+      //   "thumbnail": "web address",
+      //   "thumbnail_small": "web address",
+      //   "source_email": "rory@tardis.com",
+      //   "source_id": 5,
+      //   "dest_email": "eve@swift.com",
+      //   "dest_id": 3
+      // },
+
     // Pending requests are status in (N,A)
     var pendingRequests = Bookfriends.Collections.rentalsMade.filter(
       function(rental) {

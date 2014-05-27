@@ -5,9 +5,19 @@
   <% if (pendingRequests.length > 0) { %>
     <ul>
       <% _(pendingRequests).each( function(request) { %>
-        <%= request.escape("dest_user") %>
-        <%= request.escape("book_id") %>
-        <%= request.escape("google_id") %>
+        <li>
+          Request to <%= request.escape("dest_email") %> made on <%= request.escape("created_at") %>
+          <br>
+          Status: <% if (request.get("status") === "N") { %>
+            Awaiting Approval
+          <% } else { %>
+            Approved - Awaiting Delivery
+          <% } %>
+          <br>
+          <%= request.escape("title") %>
+          <%= request.escape("author") %>
+          <img src='<%= request.escape("thumbnail_small") %>'>
+        </li>
       <% }); %>
     </ul>
   <% } else { %>
@@ -20,9 +30,14 @@
   <% if (borrowedBooks.length > 0) { %>
     <ul>
       <% _(borrowedBooks).each( function(request) { %>
-        <%= request.escape("dest_user") %>
-        <%= request.escape("book_id") %>
-        <%= request.escape("google_id") %>
+        <li>
+          Borrowed from <%= request.escape("dest_email") %> delivered on <%= request.escape("updated_at") %>
+          <br>
+          <%= request.escape("title") %>
+          <%= request.escape("author") %>
+          <img src='<%= request.escape("thumbnail_small") %>'>
+          This book is due on <%= request.escape("due_date") %>
+        </li>
       <% }); %>
     </ul>
   <% } else { %>
@@ -35,9 +50,19 @@
   <% if (actionNeeded.length > 0) { %>
     <ul>
       <% _(actionNeeded).each( function(request) { %>
-        <%= request.escape("dest_user") %>
-        <%= request.escape("book_id") %>
-        <%= request.escape("google_id") %>
+        <li data-id="<%= request.id %>" class="request-needing-action">
+          Request By: <%= request.escape("dest_email") %> made on <%= request.escape("created_at") %>
+          <br>
+          <% if (request.get("status") === "N") { %>
+            <button class="mark-as-approved btn btn-info btn-xs">Approve</button>
+          <% } else { %> <!-- A -->
+            <button class="mark-as-delivered btn btn-info btn-xs">Mark as Delivered</button>
+          <% } %>
+          <br>
+          <%= request.escape("title") %>
+          <%= request.escape("author") %>
+          <img src='<%= request.escape("thumbnail_small") %>'>
+        </li>
       <% }); %>
     </ul>
   <% } else { %>
@@ -49,11 +74,6 @@
   <h4>Borrowing History</h4>
   <% if (rentalHistory.length > 0) { %>
     <ul>
-      <% _(rentalHistory).each( function(request) { %>
-        <%= request.escape("dest_user") %>
-        <%= request.escape("book_id") %>
-        <%= request.escape("google_id") %>
-      <% }); %>
     </ul>
   <% } %>
 <div>

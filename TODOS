@@ -1,7 +1,5 @@
 
 
-Clicking on the main logo tries to relaunch backbone... why is it not refreshing instead?
-
 Ask CJ about the same origin policy
 
 Typeahead doesn't work after doing one search
@@ -11,23 +9,26 @@ After hitting the add bookshelf button, set the focus to the search box
 When moving from Library view to search view, maintain the state of the shelf index
 
 
-Monday
-  Be able to view friends libraries, while keeping track of your own books.
+Tuesday
+  Get approvals/deliveries to work.
+    commit
+  Re-work the requests page to use the globals/initialize method.
+  Fix typeahead.
+  Cross-reference search results to better display them.
 
     Lending view
       Be able to view lent books, receive them back, pending requests, change duration, approve them.
       be able to view your request history.
 
-  Make the friends view better looking.
 
-
-Tuesday
-Finish functionality
 
 Wednesday/Thursday
-Looks and small items.
+  Make the friends view better looking.
+  Looks and small items.
 
 
+Additional things to implement:
+  Use subviews for the rental request page instead of re-rendering the whole page.
 
 
 

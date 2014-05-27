@@ -1,8 +1,9 @@
 class Api::RentalsController < ApplicationController
 
   def index
-    @rentals = Rental.where("source_user = #{current_user.id} OR dest_user = #{current_user.id}")
-    render :json => @rentals
+    @rentals = Rental.includes(:book, :requested_by, :requested_from)
+      .where("source_user = #{current_user.id} OR dest_user = #{current_user.id}")
+    # render :json => @rentals
   end
 
   def create
