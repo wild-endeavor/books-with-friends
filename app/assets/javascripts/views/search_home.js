@@ -170,7 +170,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       this.performSearch(event);
       return;
     }
-    if (event.keyCode === 8) {    // do nothing if backspace
+    if (event.keyCode <= 46) {    // do nothing if control keys
       return;
     }
 

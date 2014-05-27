@@ -126,11 +126,15 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       }
     });
 
+    // Store all of your friends books as a hash of google_id to user id
     Bookfriends.Collections.friendsBooks = {};
-    // Store all your friends bookshelves and books
-    // When you have a lot of friends who have a lot of books this
-    // will no longer be viable
-
+    $.ajax({
+      url: "/api/friends_books/",
+      method: "GET",
+      success: function(response) {
+        Bookfriends.Collections.friendsBooks = response;
+      }
+    });
   },
 
   _swapView: function(view, selector) {

@@ -14,10 +14,6 @@ When moving from Library view to search view, maintain the state of the shelf in
 Monday
   Be able to view friends libraries, while keeping track of your own books.
 
-  Rental request modeling
-    Form to request - pop-up/modal maybe.
-      basically just start date and duration.
-
     Lending view
       Be able to view lent books, receive them back, pending requests, change duration, approve them.
       be able to view your request history.
