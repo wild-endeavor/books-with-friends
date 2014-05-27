@@ -3,7 +3,8 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     "": "userShowLibrary",
     "search": "userShowSearch",
     "friends": "showFriendsIndex",
-    "friendShow/:id": "showFriendLibrary"
+    "friendShow/:id": "showFriendLibrary",
+    "rentals": "rentalsMain"
   },
 
   userShowLibrary: function() {
@@ -87,6 +88,45 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       collection: shelves
     });
     this._swapView(view, "#main-content");
+  },
+
+  rentalsMain: function () {
+    this.initialize();
+
+    var view = new Bookfriends.Views.RentalsHome();
+
+    this._swapView(view);
+
+  },
+
+  initialize: function() {
+    var bootstrappedInfo = JSON.parse($('#bstrapped-current-user').html());
+    var userId = bootstrappedInfo.current_user_id;
+
+    // Store all your own bookshelves
+    Bookfriends.Collections.myShelves =
+      new Bookfriends.Collections.Bookshelves([], {
+        userId: userId
+      });
+    Bookfriends.Collections.myShelves.fetch();
+
+    // Store all rental requests you've made and received
+    var tempRequests = new Bookfriends.Collections.Rentals();
+    Bookfriends.Collections.rentalsMade = new Bookfriends.Collections.Rentals();
+    Bookfriends.Collections.rentalsReceived = new Bookfriends.Collections.Rentals();
+    tempRequests.fetch({
+      success: function() {
+        Bookfriends.Collections.rentalsMade.set(tempRequests.where({source_user: userId}));
+        Bookfriends.Collections.rentalsReceived.set(tempRequests.where({source_user: userId}));
+      }
+    });
+
+    // Store all your friends bookshelves and books
+    // When you have a lot of friends who have a lot of books this
+    // will no longer be viable
+
+
+
   },
 
   _swapView: function(view, selector) {

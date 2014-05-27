@@ -83,7 +83,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.engine = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      // `states` is an array of state names defined in "The Basics"
       local: $.map(this.searchSuggestions, function(state) { return { value: state }; })
     });
      

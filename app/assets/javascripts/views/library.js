@@ -27,6 +27,7 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     this.rentalRequests = [];
     this.friendView = options.friendView;
     this.friendId = options.friendId;
+    this.friend;
     this.friendShelves = options.friendShelves;
     this.currentUser = options.currentUser;
 
@@ -67,23 +68,33 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
       friend: this.friend
     });
 
-    $("#modal-book-header").html(headerContent);
+    $("#book-request-modal-content").html(headerContent);
     $("#book-request-modal").modal("show");
-    // this.saveRentalRequest(event, model);
   },
 
-  saveRentalRequest: function(event, model) {
+  events: {
+    "submit #rental-request-form": "saveRentalRequest"
+  },
+
+  saveRentalRequest: function(event) {
+    event.preventDefault();
     var view = this;
-    var rental = new Bookfriends.Models.Rental({
-      dest_user: parseInt(this.friendId),
-      google_id: model.escape("google_id")
+    var rentalData = $(event.target).serializeJSON()["rental"];
+    var rental = new Bookfriends.Models.Rental(rentalData);
+    rental.save({}, {
+      success: function(model, response) {
+        console.log("successfully saved rental request");
+        $("#book-request-modal").modal("hide");
+        view.rentalRequests.push(model.escape("book_id"));
+      },
+      error: function(model, response) {
+        debugger
+        var alertContent = JST["books/rental_alert"]({
+          response: response
+        });
+        $("#book-request-modal .modal-header").prepend(alertContent);
+      }
     });
-    // rental.save({}, {
-    //   success: function(model, response) {
-    //     console.log("successfully saved rental request");
-    //     view.rentalRequests.push(model.escape("google_id"));
-    //   }
-    // });
   },
 
   render: function() {
@@ -94,7 +105,7 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
         function(f) { return f.id === parseInt(friendId); }
       );
       if (this.friend) {
-        shelfIndexTitle = friend.escape("email") + "'s Bookshelves";
+        shelfIndexTitle = this.friend.escape("email") + "'s Bookshelves";
       }
     }
 

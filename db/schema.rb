@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526181942) do
+ActiveRecord::Schema.define(version: 20140526215439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140526181942) do
     t.text     "thumbnail_small"
     t.text     "thumbnail"
     t.string   "self_link"
+    t.string   "available"
   end
 
   create_table "bookshelves", force: true do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140526181942) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "google_id"
+    t.integer  "book_id"
   end
 
   create_table "users", force: true do |t|

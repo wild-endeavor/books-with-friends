@@ -1,6 +1,33 @@
 
-<h3>Borrow from <%= friend.escape("email") %></h3>
-<h5><%= book.escape("title") %></h5>
-<%= book.escape("author") %>
-Google ID:<%= book.escape("google_id") %>
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h3>Borrow from <%= friend.escape("email") %></h3>
+  <h5><%= book.escape("title") %></h5>
+  <%= book.escape("author") %>
+  <img src="<%= book.escape("thumbnail_small") %>">
+</div>
+
+<div class="modal-body">
+  <form action="/api/fdjsal" method="POST" id="rental-request-form">
+    <input type="hidden" name="rental[dest_user]" value="<%= friend.id %>">
+    <input type="hidden" name="rental[google_id]" value="<%= book.escape("google_id") %>">
+    <input type="hidden" name="rental[book_id]" value="<%= book.escape("id") %>">
+    <label for="rental-duration">How long would you like to borrow for?</label>
+    <select name="rental[duration]">
+      <option value="3">3 Weeks</option>
+      <option value="5">5 Weeks</option>
+      <option value="7">7 Weeks</option>
+      <option value="9">9 Weeks</option>
+    </select>
+    <div>
+    <label>Message for <%= friend.escape("email") %><br>
+    <textarea name="rental[message]">
+    </textarea></label>
+    </div>
+    <div style="float:right">
+    <input type="submit" class="btn btn-primary btn-sm" value="Borrow!"></div>
+    <br>
+  </form>
+</div>
 

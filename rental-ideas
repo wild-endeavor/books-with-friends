@@ -1,0 +1,28 @@
+
+
+
+Two users make a request, a day apart.
+Both should be valid, because the book is in-stock.
+The owner sees both, approves one, which should reject all the others.
+
+Upon approval, the view should change to allow the owner to mark it as delivered.
+
+Upon approval, the status of the book should be marked as unavailable to borrow.
+
+If another request comes in when it is out, then reject.
+
+A book is marked as available again when the owner marks it as returned.
+
+
+
+Need to know at all times:
+Your own shelves.
+Your own books.
+Your friends.
+Your friend's books.
+Your non-finished rental requests.
+
+
+Library
+  Shelf-index (maybe your own) maybe not.
+  Shelf-show
