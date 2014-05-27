@@ -1,10 +1,59 @@
 <h2>Manage Your Inventory</h2>
 
 <div>
-  <h4>Books You Have Out</h4>
+  <h4>Pending Requests</h4>
+  <% if (pendingRequests.length > 0) { %>
+    <ul>
+      <% _(pendingRequests).each( function(request) { %>
+        <%= request.escape("dest_user") %>
+        <%= request.escape("book_id") %>
+        <%= request.escape("google_id") %>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    You have not made any requests.  Browse your friends' books and borrow some!
+  <% } %>
 </div>
 
-<h4>Pending Requests</h4>
+<div>
+  <h4>Books You Have Out</h4>
+  <% if (borrowedBooks.length > 0) { %>
+    <ul>
+      <% _(borrowedBooks).each( function(request) { %>
+        <%= request.escape("dest_user") %>
+        <%= request.escape("book_id") %>
+        <%= request.escape("google_id") %>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    Borrow some books!
+  <% } %>
+</div>
 
+<div>
+  <h4>What Your Friends Want</h4>
+  <% if (actionNeeded.length > 0) { %>
+    <ul>
+      <% _(actionNeeded).each( function(request) { %>
+        <%= request.escape("dest_user") %>
+        <%= request.escape("book_id") %>
+        <%= request.escape("google_id") %>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    Your friends have nothing they want from you.  Buy some books!  Then add them here!
+  <% } %>
+</div>
 
-<h4>Borrowing History</h4>
+<div>
+  <h4>Borrowing History</h4>
+  <% if (rentalHistory.length > 0) { %>
+    <ul>
+      <% _(rentalHistory).each( function(request) { %>
+        <%= request.escape("dest_user") %>
+        <%= request.escape("book_id") %>
+        <%= request.escape("google_id") %>
+      <% }); %>
+    </ul>
+  <% } %>
+<div>

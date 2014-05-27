@@ -95,7 +95,7 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
 
     var view = new Bookfriends.Views.RentalsHome();
 
-    this._swapView(view);
+    this._swapView(view, "#main-content");
 
   },
 
@@ -120,8 +120,14 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     Bookfriends.Collections.rentalsReceived = new Bookfriends.Collections.Rentals();
     tempRequests.fetch({
       success: function() {
+        // The use of these pseudo-collections is slightly awkward - have to make sure
+        // they are never actually synced with the db, which would pull _all_ the requests
+        // Maybe try to freeze them somehow?
+        // Manually trigger sync for now
         Bookfriends.Collections.rentalsMade.set(tempRequests.where({source_user: userId}));
-        Bookfriends.Collections.rentalsReceived.set(tempRequests.where({source_user: userId}));
+        Bookfriends.Collections.rentalsMade.trigger("sync");
+        Bookfriends.Collections.rentalsReceived.set(tempRequests.where({dest_user: userId}));
+        Bookfriends.Collections.rentalsReceived.trigger("sync");
         tempRequests = undefined;
       }
     });
@@ -133,6 +139,9 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       method: "GET",
       success: function(response) {
         Bookfriends.Collections.friendsBooks = response;
+        // TODO?: re-render everything that needs to be re-rendered
+        // this should be populated by the time a search
+        // actually executes in any case
       }
     });
   },
