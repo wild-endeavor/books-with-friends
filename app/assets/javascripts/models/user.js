@@ -14,6 +14,14 @@ window.Bookfriends.Models.User = Backbone.Model.extend({
     return this._friends;
   },
 
+  shelves: function() {
+    if (!this._shelves) {
+      this._shelves = new Bookfriends.Collections.Bookshelves([],{
+        owner: this
+      });
+    }
+    return this._shelves;
+  },
 
   parse: function(jsonResponse) {
     this.friends().set(jsonResponse.friends, {parse: true});

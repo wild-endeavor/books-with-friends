@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   )
   has_many :friends, :through => :friendships, :source => :friend
 
+  has_many :friends_books, :through => :friends, :source => :books
+
   def self.find_by_credentials(email, plain_text)
     user = User.find_by_email(email)
     if (user && user.is_password?(plain_text))

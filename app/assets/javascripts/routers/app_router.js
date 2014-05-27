@@ -103,6 +103,10 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     var bootstrappedInfo = JSON.parse($('#bstrapped-current-user').html());
     var userId = bootstrappedInfo.current_user_id;
 
+    // Store your own user information
+    Bookfriends.Models.currentUser = new Bookfriends.Models.User({ id: userId });
+    Bookfriends.Models.currentUser.fetch();
+
     // Store all your own bookshelves
     Bookfriends.Collections.myShelves =
       new Bookfriends.Collections.Bookshelves([], {
@@ -118,14 +122,14 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
       success: function() {
         Bookfriends.Collections.rentalsMade.set(tempRequests.where({source_user: userId}));
         Bookfriends.Collections.rentalsReceived.set(tempRequests.where({source_user: userId}));
+        tempRequests = undefined;
       }
     });
 
+    Bookfriends.Collections.friendsBooks = {};
     // Store all your friends bookshelves and books
     // When you have a lot of friends who have a lot of books this
     // will no longer be viable
-
-
 
   },
 

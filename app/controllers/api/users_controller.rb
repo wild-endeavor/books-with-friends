@@ -10,4 +10,9 @@ class Api::UsersController < ApplicationController
     render :json => user
   end
 
+  # Return a giant hash, keys are google_ids,
+  #   values are arrays of all the user_ids that own them
+  def friend_books_catalog
+  end
+
 end

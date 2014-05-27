@@ -6,7 +6,9 @@ Ask CJ about the same origin policy
 
 Typeahead doesn't work after doing one search
 
-After adding a bookshelf, set the focus to the search box
+After hitting the add bookshelf button, set the focus to the search box
+
+When moving from Library view to search view, maintain the state of the shelf index
 
 
 Monday

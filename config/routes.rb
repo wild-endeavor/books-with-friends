@@ -12,16 +12,14 @@ Rails.application.routes.draw do
     resources :rentals, :only => [:index, :update] # listing all your rentals (both ways) and updating statuses
 
     resources :books, :only => [:destroy]
+
+    resources :friends_books, :only => [:index]
   end
 
   resources :users do
     resources :bookshelves, :only => [:index, :new, :create]
   end
-
-  # resource :bookshelves, :only => [:show, :destroy, :update] do
-  #   resource :books, :only => [:index, :new, :create]
-  # end
-
+  
   resource :session, :only => [:create, :destroy, :new]
 
   root :to => "users#show"
