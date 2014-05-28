@@ -9,8 +9,8 @@
 </div>
 
 <div class="row new-session-user-management">
-  <div class="col-sm-6 session-border-left">
-    <div class="new-session-column" style="width=80%">
+  <div class="col-sm-6 session-border-right">
+    <div class="new-session-column">
       <h3>Existing Users</h3>
       <form id="new-session-login" action="<%= session_url %>" method="post">
         <%= auth_token_helper %>
@@ -35,8 +35,8 @@
       </form>
     </div>
   </div>
-  <div class="col-sm-6 session-border-right">
-    <div class="new-session-column session-border-right" style="padding-top:15px">
+  <div class="col-sm-6">
+    <div class="new-session-column" style="padding-top:15px">
       <div>
         <h4>Employers: Please use one of these guest logins</h4>
         <br>
@@ -53,19 +53,20 @@
 </div>
 
 <div class="row">
-  <div class="span6">
-    <div class="session-about-box">
-      <div class="about-icon">
-        <img src="assets/about.png">
+  <div class="col-sm-6 session-col-6">
+    <div class="row session-about-box">
+      <div class="col-sm-2 about-icon">
+        <img src="/assets/about-icon.png">
       </div>
-      <div class="fact-text span8">
+      <div class="about-text col-sm-10">
         <h4>
-          Locals Love
+          What is this?
         </h4>
         <p>
-          Spending hours at a cafe,
-            the Seine, wine and cheese, picnics on the canal, talking about the latest
-            exhibition, complaining about Parisians
+          This site is a first and foremost a final project for App Academy, meant to demonstrate
+          to potential employers a mere fraction of the skills learned over twelve weeks. The idea was
+          conceived when two book lovers lost track of the books they had lent out to their friends.
+          It is also a work in progress!  Please be patient.
         </p>
       </div>
     </div>
