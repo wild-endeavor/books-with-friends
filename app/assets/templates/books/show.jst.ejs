@@ -7,7 +7,7 @@
 <% if (mode === "own") { %>
   <button type="button" class="close remove-owned-book">&times;</button>
   <% if (book.escape("available") === "F") { %>
-    This title is on loan
+    This title is on loan.
   <% } %>    
 <% } %>
 
@@ -24,6 +24,14 @@
 <% } %>
 
 <% if (mode === "friend") { %>
-  <button type="button" class="close request-book">R</button>
+  <% if (book.escape("available") === "F") { %>
+    Book is currently out.
+  <% } else { %>
+    <% if (requests.length > 0) { %>
+      You've already requested this title.
+    <% } else { %>
+    <button type="button" class="close request-book">R</button>
+    <% } %>
+  <% } %>
 <% } %>
 

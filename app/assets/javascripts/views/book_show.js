@@ -6,6 +6,10 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
     this.parentView = options.parentView;
     this.ownBookCatalog = options.ownBookCatalog;
     this.mode = options.mode;
+    if (this.mode === "friend") {
+      this.listenTo(Bookfriends.Collections.rentalsMade, "sync", this.render);
+    }
+    window.bv = this;
   },
 
   attributes: function() {
@@ -39,9 +43,24 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
   template: JST["books/show"],
 
   render: function() {
+    var view = this;
+    if (this.mode === "friend") {
+      // gather all the requests made by the user for this title, can include previous
+      // fulfilled requests.
+      var allRequests = Bookfriends.Collections.rentalsMade.filter(function(request) {
+        return parseInt(request.escape("book_id")) === view.model.id;
+      });
+      var requests = allRequests.filter(function(request) {
+        return request.get("status") === "N" ||
+               request.get("status") === "A" ||
+               request.get("status") === "D"
+      });
+    }
+
     var renderedContent = this.template({
       book: this.model,
       ownBookCatalog: this.parentView.parentView.bookCatalog,
+      requests: requests,
       mode: this.mode
     });
 

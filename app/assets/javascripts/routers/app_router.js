@@ -29,7 +29,7 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
 // Application wide variables
 // Bookfriends.Models.currentUser
 // Bookfriends.Collections.myShelves
-// Bookfriends.Collections.rentalsMade
+// Bookfriends.Collections.rentalsMade // misnomer, more like requests made
 // Bookfriends.Collections.rentalsReceived
 // Bookfriends.Collections.friendsBooks // not a real collection
 
@@ -55,13 +55,6 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userShowSearch: function() {
-    // var currentUser = JSON.parse($('#bstrapped-current-user').html());
-    // var shelves = Bookfriends.Collections.shelves =
-    //   new Bookfriends.Collections.Bookshelves([], {
-    //     userId: currentUser.current_user_id
-    //   });
-    // shelves.fetch();
-
     var view = new Bookfriends.Views.SearchHome({
       collection: Bookfriends.Collections.myShelves
     });

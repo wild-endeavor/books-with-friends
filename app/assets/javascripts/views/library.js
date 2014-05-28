@@ -76,6 +76,8 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     rental.save({}, {
       success: function(model, response) {
         console.log("successfully saved rental request");
+        Bookfriends.Collections.rentalsMade.add(model);
+        Bookfriends.Collections.rentalsMade.trigger("sync");
         $("#book-request-modal").modal("hide");
       },
       error: function(model, response) {

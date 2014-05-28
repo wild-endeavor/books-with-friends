@@ -13,7 +13,7 @@ Tuesday
   Re-work the requests page to use the globals/initialize method.
   After making a request, remove it from the view - via adding it to the collection.
   Cross-reference search results to better display them.
-  Fix typeahead.
+  Fix typeaheadx
 
 
 
