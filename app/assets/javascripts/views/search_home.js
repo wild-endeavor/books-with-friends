@@ -132,7 +132,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   },
 
   startSearchResultsView: function() {
-    this.hasSearched = true;
     var shelfShowView = new Bookfriends.Views.ShelfShow({
       collection: this.collection,
       parentView: this,
@@ -144,7 +143,20 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   },
 
   events: {
-    "keyup #main-search-box": "keyUpHandler"
+    "keyup #main-search-box": "keyUpHandler",
+    "submit #rental-request-form": "saveRentalRequest"
+
+  },
+
+  handleSearchResponse: function(response) {
+    var parsedBooks = this.extractBooksData(response);
+    // console.log(parsedBooks);
+    if (!this.hasSearched) {
+      this.hasSearched = true;
+      this.startSearchResultsView();
+    }
+    // this.searchShelf.set("name", "Search Results: " + this.searchTerms);
+    this.searchShelf.books().set(parsedBooks);
   },
 
   render: function() {
@@ -207,17 +219,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     });
   },
 
-  handleSearchResponse: function(response) {
-    var parsedBooks = this.extractBooksData(response);
-    // console.log(parsedBooks);
-    if (!this.hasSearched) {
-      this.hasSearched = true;
-      this.startSearchResultsView();
-    }
-    this.searchShelf.books().set(parsedBooks);
-    this.searchShelf.name = "Search Results: " + this.searchTerms;
-  },
-
   extractBooksData: function(response) {
     var results = [];
     response.items.forEach(function(item) {
@@ -236,7 +237,58 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       results.push(volume);
     });
     return results;
+  },
+
+  requestBook: function(event, model) {
+    var view = this;
+    var friendId = parseInt($(event.target).parent().attr("data-id"));
+    var friend = Bookfriends.Models.currentUser.friends().get(friendId);
+    var tempBookCollection = new Bookfriends.Collections.Books();
+    tempBookCollection.userId = friendId;
+    tempBookCollection.fetch({
+      data: {q: {google_id: model.get("google_id")}},
+      success: function(responseCollection) {
+        var bookInstance = responseCollection.first();
+        if (bookInstance) {
+          bookInstance.set("owner_id", friendId);
+              // won't need this after we make owner_id a column in the db
+          var headerContent = JST["books/rental"]({
+            book: bookInstance,
+            friend: friend
+          });
+
+          $("#book-request-modal-content").html(headerContent);
+          $("#book-request-modal").modal("show");
+        } else {
+          console.log("Could not fetch book."); // replace with flash alert
+        }
+      }
+    });
+  },
+
+  // same as library
+  saveRentalRequest: function(event) {
+    event.preventDefault();
+    var view = this;
+    var rentalData = $(event.target).serializeJSON()["rental"];
+    var rental = new Bookfriends.Models.Rental(rentalData);
+    rental.save({}, {
+      success: function(model, response) {
+        console.log("successfully saved rental request");
+        Bookfriends.Collections.rentalsMade.add(model);
+        Bookfriends.Collections.rentalsMade.trigger("sync");
+        $("#book-request-modal").modal("hide");
+      },
+      error: function(model, response) {
+        var alertContent = JST["books/rental_alert"]({
+          response: response
+        });
+        $("#book-request-modal .modal-header").prepend(alertContent);
+      }
+    });
   }
+
+
 
 
 

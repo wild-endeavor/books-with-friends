@@ -22,9 +22,9 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
         ownBookCatalog: view.parentView.bookCatalog,
         mode: view.mode
       });
+      // option 1: change the book show view to look up the global hash when rendering search results
       view.addSubview(".book-container", bookShowView);
     });
-
   },
 
   removeFromUserLibrary: function(event, bookModel) {

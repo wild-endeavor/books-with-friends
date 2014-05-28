@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api, :defaults => { :format => :json } do
     resources :users, :only => [:index, :show] do
+      resources :books, :only => [:index]
       resources :bookshelves, :only => [:index, :create]
       resources :rentals, :only => [:create] # current user borrowing from user X
     end

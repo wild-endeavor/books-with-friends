@@ -46,7 +46,8 @@ Book.create!([
   {bookshelf_id: 12, title: "Rome", author: "Andrea Carandini", google_id: "5B0S2lSVRGAC", rating: nil, reading_status: nil, review: nil, thumbnail_small: "http://bks1.books.google.com/books?id=5B0S2lSVRGAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", thumbnail: "http://bks1.books.google.com/books?id=5B0S2lSVRGAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", self_link: "https://www.googleapis.com/books/v1/volumes/5B0S2lSVRGAC", available: "T"},
   {bookshelf_id: 12, title: "Rome", author: "Dorigen Sophie Caldwell", google_id: "ZVbtJmD8Hq4C", rating: nil, reading_status: nil, review: nil, thumbnail_small: "http://bks7.books.google.com/books?id=ZVbtJmD8Hq4C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", thumbnail: "http://bks7.books.google.com/books?id=ZVbtJmD8Hq4C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", self_link: "https://www.googleapis.com/books/v1/volumes/ZVbtJmD8Hq4C", available: "T"},
   {bookshelf_id: 12, title: "Rome", author: "Greg Woolf", google_id: "zdeFEqGNUk8C", rating: nil, reading_status: nil, review: nil, thumbnail_small: "http://bks5.books.google.com/books?id=zdeFEqGNUk8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", thumbnail: "http://bks5.books.google.com/books?id=zdeFEqGNUk8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", self_link: "https://www.googleapis.com/books/v1/volumes/zdeFEqGNUk8C", available: "T"},
-  {bookshelf_id: 14, title: "Maintenance Fundamentals", author: "R. Keith Mobley", google_id: "uAt-Bbn8oN8C", rating: nil, reading_status: nil, review: nil, thumbnail_small: "http://bks7.books.google.com/books?id=uAt-Bbn8oN8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", thumbnail: "http://bks7.books.google.com/books?id=uAt-Bbn8oN8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", self_link: "https://www.googleapis.com/books/v1/volumes/uAt-Bbn8oN8C", available: "T"}
+  {bookshelf_id: 14, title: "Maintenance Fundamentals", author: "R. Keith Mobley", google_id: "uAt-Bbn8oN8C", rating: nil, reading_status: nil, review: nil, thumbnail_small: "http://bks7.books.google.com/books?id=uAt-Bbn8oN8C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", thumbnail: "http://bks7.books.google.com/books?id=uAt-Bbn8oN8C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", self_link: "https://www.googleapis.com/books/v1/volumes/uAt-Bbn8oN8C", available: "T"},
+  {bookshelf_id: 13, title: "Apples", author: "Roger Yepsen", google_id: "ORlONsyBFKwC", rating: nil, reading_status: nil, review: nil, thumbnail_small: "http://bks8.books.google.com/books?id=ORlONsyBFKwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api", thumbnail: "http://bks8.books.google.com/books?id=ORlONsyBFKwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api", self_link: "https://www.googleapis.com/books/v1/volumes/ORlONsyBFKwC", available: nil}
 ])
 Bookshelf.create!([
   {user_id: 1, name: "Math", rank: 1},
@@ -73,17 +74,22 @@ Friendship.create!([
   {source_friend: 2, dest_friend: 5},
   {source_friend: 5, dest_friend: 2},
   {source_friend: 3, dest_friend: 4},
-  {source_friend: 4, dest_friend: 3}
+  {source_friend: 4, dest_friend: 3},
+  {source_friend: 1, dest_friend: 5},
+  {source_friend: 5, dest_friend: 1}
 ])
 Rental.create!([
   {source_user: 5, dest_user: 3, approve_date: nil, delivery_date: nil, due_date: "2014-06-17", status: "N", message: "", google_id: "eS5v-F04AoQC", book_id: 27, return_date: nil},
   {source_user: 4, dest_user: 3, approve_date: nil, delivery_date: nil, due_date: "2014-07-29", status: "N", message: "", google_id: "lfHo7uMk7r4C", book_id: 23, return_date: nil},
-  {source_user: 5, dest_user: 3, approve_date: "2014-05-27", delivery_date: "2014-05-27", due_date: "2014-06-17", status: "D", message: "", google_id: "X-l9NX3iemAC", book_id: 22, return_date: nil}
+  {source_user: 5, dest_user: 3, approve_date: "2014-05-27", delivery_date: "2014-05-27", due_date: "2014-06-17", status: "D", message: "", google_id: "X-l9NX3iemAC", book_id: 22, return_date: nil},
+  {source_user: 5, dest_user: 3, approve_date: nil, delivery_date: nil, due_date: "2014-06-17", status: "N", message: "", google_id: "SPcHq8wftrsC", book_id: 21, return_date: nil},
+  {source_user: 5, dest_user: 3, approve_date: nil, delivery_date: nil, due_date: "2014-06-17", status: "N", message: "", google_id: "1rW-QpIAs8UC", book_id: 29, return_date: nil},
+  {source_user: 5, dest_user: 1, approve_date: nil, delivery_date: nil, due_date: "2014-07-16", status: "N", message: "", google_id: "fYnWAAAAQBAJ", book_id: 10, return_date: nil}
 ])
 User.create!([
-  {email: "bob@swift.com", password_digest: "$2a$10$FfhLdy9cj1bbK438gqv6a.RtrzqhhsenIW8nn9flBh.kveAviiyVW", session_token: "b34094b2b75d640dcef917305be46211", account_status: "N", omniauthable: nil},
-  {email: "alice@swift.com", password_digest: "$2a$10$DJQ4TiN4pbcPFqoD4Kxb9OvNWB5WcLKgzGbSlXBZjywBSUgLxbwhi", session_token: "a3da12c6f8e9f0ff319a5a695673dc38", account_status: "N", omniauthable: nil},
-  {email: "eve@swift.com", password_digest: "$2a$10$YeVCWVcuNLoMPyRIOXC11.x8NrBQ7Mdx8Px/27Gs.Bhr/dPBuubZi", session_token: "3b4058e2f6d3f0234dbad31eb48756e8", account_status: "N", omniauthable: nil},
-  {email: "rory@tardis.com", password_digest: "$2a$10$pizNrqBNdVrkluIrV/KcvehFkjSco9HvfS7uYLNs51asceJjAtgXO", session_token: "6a01e1795990c407e274630b70906f48", account_status: "N", omniauthable: nil},
-  {email: "amy@tardis.com", password_digest: "$2a$10$YnjoHFCvNhK15CWe9ZLtf.eVQqt8r4XrSuC5/dikYAwWiGTEfEQb.", session_token: "c0103d4306b1d43a565732f04d1b501d", account_status: "N", omniauthable: nil}
+  {email: "amy@tardis.com", password_digest: "$2a$10$YnjoHFCvNhK15CWe9ZLtf.eVQqt8r4XrSuC5/dikYAwWiGTEfEQb.", session_token: "c0103d4306b1d43a565732f04d1b501d", account_status: "N", omniauthable: nil},
+  {email: "eve@swift.com", password_digest: "$2a$10$YeVCWVcuNLoMPyRIOXC11.x8NrBQ7Mdx8Px/27Gs.Bhr/dPBuubZi", session_token: "aefa75f98d8889b5ebc36a64e2450198", account_status: "N", omniauthable: nil},
+  {email: "alice@swift.com", password_digest: "$2a$10$DJQ4TiN4pbcPFqoD4Kxb9OvNWB5WcLKgzGbSlXBZjywBSUgLxbwhi", session_token: "16db039fc2c4927e5eac0990f6fcc9e2", account_status: "N", omniauthable: nil},
+  {email: "bob@swift.com", password_digest: "$2a$10$FfhLdy9cj1bbK438gqv6a.RtrzqhhsenIW8nn9flBh.kveAviiyVW", session_token: "f04120967cbe8e3424205fbf3ef35f0c", account_status: "N", omniauthable: nil},
+  {email: "rory@tardis.com", password_digest: "$2a$10$pizNrqBNdVrkluIrV/KcvehFkjSco9HvfS7uYLNs51asceJjAtgXO", session_token: "6c3efbe2d0312d556988dd464a9bcfa4", account_status: "N", omniauthable: nil}
 ])

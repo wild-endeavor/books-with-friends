@@ -6,6 +6,9 @@ class Book < ActiveRecord::Base
 
   has_one :owner, :through => :bookshelf, :source => :user
 
+  def owner_id
+    owner.id
+  end
 
   private
 

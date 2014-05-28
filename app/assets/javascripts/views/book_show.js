@@ -57,10 +57,25 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
       });
     }
 
+    if (this.mode === "search") {
+      // look up the book in the faux global collection Bookfriends.Collections.friendsBooks
+      var friendAvailability = [];
+      var friendIds = Bookfriends.Collections.friendsBooks[this.model.get("google_id")];
+      if (friendIds) {
+        _(friendIds).each(function(friendId) {
+          var friendInstance = Bookfriends.Models.currentUser.friends().get(friendId);
+          if (friendInstance) { // this really should always be defined
+            friendAvailability.push(friendInstance);
+          }
+        });
+      }
+    }
+
     var renderedContent = this.template({
       book: this.model,
       ownBookCatalog: this.parentView.parentView.bookCatalog,
-      requests: requests,
+      requests: requests, // variable hoisting
+      friendAvailability: friendAvailability, // variable hoisting
       mode: this.mode
     });
 

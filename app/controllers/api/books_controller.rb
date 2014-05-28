@@ -3,6 +3,16 @@ class Api::BooksController < ApplicationController
   def show
   end
 
+  # used for querying a user's books - in the search view mainly, when getting the book model
+  # when a search returns a book that a friend already has.
+  def index
+    @books = []
+    if (params[:q])
+      @books = Book.where(params[:q])
+    end
+    render :json => @books
+  end
+
   def create
     p book_params
     book = Book.new(book_params)

@@ -21,6 +21,19 @@
           <span class="glyphicon glyphicon-plus"></span>
     </button>
   <% } %>
+
+  <% if (friendAvailability && friendAvailability.length > 0) { %>
+    <ul>
+      <% _(friendAvailability).each(function(friend) { %>
+        <li>
+          <%= friend.escape("email") %> has this book!
+          <button type="button" class="btn btn-default btn-xs request-book" data-id="<%= friend.id %>">
+            <span class="glyphicon glyphicon-book"></span>
+          </button>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
 <% } %>
 
 <% if (mode === "friend") { %>
