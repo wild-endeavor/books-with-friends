@@ -289,7 +289,4 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   }
 
 
-
-
-
 });

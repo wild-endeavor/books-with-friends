@@ -1,37 +1,80 @@
-<h1>Sign In</h1>
+<div class="new-session-main-container">
 
-<form id="new-session-login" action="<%= session_url %>" method="post">
+<div class="new-session-background-image" style="background-image: url('/assets/book_stacks.jpg');">
+  <div class="main-logo-area">
+    <h1>Books With Friends</h1>
+    <h2>Inventory management for the social bookworm.</h2>
+  </div>
 
-<%= auth_token_helper %>
-
-  <label for="user_email">Username</label>
-  <input
-     id="user_email"
-     name="user[email]"
-     type="text">
-  <br>
-
-  <label for="user_password">Password</label>
-  <input
-     id="user_password"
-     name="user[password]"
-     type="password">
-  <br>
-
-  <input type="submit" value="Log in">
-</form>
-
-<div>
-  Not a registered user? <%= link_to "Sign Up", new_user_url %>
 </div>
-<div>
-  Employers: Please use one of these guest logins:
-  <br>
-  <% @guest_logins.each do |key, value| %>
-    <button class="btn btn-info btn-sm guest-login"
-    data-id="<%= value%>"><%= key %></button>
-  <% end %>
+
+<div class="row new-session-user-management">
+  <div class="col-sm-6 session-border-left">
+    <div class="new-session-column" style="width=80%">
+      <h3>Existing Users</h3>
+      <form id="new-session-login" action="<%= session_url %>" method="post">
+        <%= auth_token_helper %>
+        <div class="form-group">
+          <input
+             id="user_email"
+             name="user[email]"
+             style="display: block"
+             placeholder="Username"
+             class="form-control"
+             type="text">
+        </div>
+        <div class="form-group">
+          <input
+             id="user_password"
+             placeholder="Password"
+             name="user[password]"
+             class="form-control"
+             type="password">
+        </div>
+        <input type="submit" value="Log in" class="btn btn-primary">
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-6 session-border-right">
+    <div class="new-session-column session-border-right" style="padding-top:15px">
+      <div>
+        <h4>Employers: Please use one of these guest logins</h4>
+        <br>
+        <% @guest_logins.each do |key, value| %>
+          <button class="btn btn-info btn-sm guest-login"
+          data-id="<%= value%>"><%= key %></button>
+        <% end %>
+      </div>
+      <div>
+        Not a registered user? <%= link_to "Sign Up", new_user_url %>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="row">
+  <div class="span6">
+    <div class="session-about-box">
+      <div class="about-icon">
+        <img src="assets/about.png">
+      </div>
+      <div class="fact-text span8">
+        <h4>
+          Locals Love
+        </h4>
+        <p>
+          Spending hours at a cafe,
+            the Seine, wine and cheese, picnics on the canal, talking about the latest
+            exhibition, complaining about Parisians
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
 
 <script type="text/javascript">
 $("button.guest-login").click(function(event) {
@@ -41,4 +84,3 @@ $("button.guest-login").click(function(event) {
   $("#new-session-login").submit();
 });
 </script>
-

@@ -14,9 +14,73 @@
  *= require_self
  */
 
-@import "bootstrap";
-$sansFontFamily: 'Alegreya', 'Lucida Grande', serif;
-$font-family-sans-serif: 'Alegreya', 'Lucida Grande', serif;
-/* font-family: 'Alegreya', serif; */
+$font-family-base: Alegreya, "Times New Roman", Times, serif !default;
 
-/* Pacifico for heading */
+@import "bootstrap";
+
+a.navbar-brand {
+    font-family: $font-family-title;
+}
+
+div.new-session-background-image {
+    background-size: cover;
+    min-height: 450px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: relative;
+    background-repeat: no-repeat; 
+    background-position-x: center;
+    background-position-y: bottom;
+    background-attachment: fixed;
+}
+
+div.main-logo-area {
+    position: relative;
+    z-index: 50;
+    opacity: 80%;
+    color: #fff;
+    top: 100px;
+    background: none;
+    margin: 0 auto 0 auto;
+    display: table;
+}
+
+div.main-logo-area h1 {
+    font-family: $font-family-title;
+    font-size: 64px;
+    text-align: center;
+    text-shadow: 0 0 24px rgba(0,0,0,0.9);
+    display: block;
+}
+
+div.main-logo-area h3 {
+    font-family: 'Rokkitt', serif;
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.5em;
+    width: 300px;
+    margin: 0 auto 15px auto;
+    display: block;
+}
+
+div.new-session-user-management {
+    background-color: #fafaef;
+}
+
+div.new-session-column {
+    padding: 0 15px 15px 15px;
+}
+
+
+.session-border-left, .session-border-right { position: relative; }
+.session-border-left:before, .session-border-right:before {
+    position: absolute;
+    width: 0px;
+    border-left: 3px solid #aaa;
+    height: 100%;
+    top: 0px;
+}
+.session-border-left:before { left: -11px; }
+.session-border-right:before { right: -10px; }
+
