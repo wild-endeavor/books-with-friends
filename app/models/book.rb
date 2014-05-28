@@ -6,6 +6,7 @@ class Book < ActiveRecord::Base
 
   has_one :owner, :through => :bookshelf, :source => :user
 
+
   private
 
   def fill_in_author

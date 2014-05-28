@@ -9,6 +9,8 @@ rory = User.create!(:email => "rory@tardis.com", :password => "password")
 # Friendships - two by two
 Friendship.create!(:source_friend => alice.id, :dest_friend => bob.id)
 Friendship.create!(:source_friend => bob.id, :dest_friend => alice.id)
+Friendship.create!(:source_friend => alice.id, :dest_friend => rory.id)
+Friendship.create!(:source_friend => rory.id, :dest_friend => alice.id)
 Friendship.create!(:source_friend => amy.id, :dest_friend => rory.id)
 Friendship.create!(:source_friend => rory.id, :dest_friend => amy.id)
 Friendship.create!(:source_friend => eve.id, :dest_friend => rory.id)

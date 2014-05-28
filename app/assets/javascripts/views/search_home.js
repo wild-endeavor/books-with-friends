@@ -137,9 +137,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       collection: this.collection,
       parentView: this,
       model: this.searchShelf,
-      showAdd: true,
-      showRemove: false,
-      showRequest: false
+      mode: "search"
     });
     this.addSubview("#main-search-results", shelfShowView);
     this.render();
@@ -218,7 +216,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     }
     this.searchShelf.books().set(parsedBooks);
     this.searchShelf.name = "Search Results: " + this.searchTerms;
-    this.$el.find("#main-search-box").val("");
   },
 
   extractBooksData: function(response) {

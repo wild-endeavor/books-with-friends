@@ -8,84 +8,62 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
   },
 
   userShowLibrary: function() {
-    var currentUser = JSON.parse($('#bstrapped-current-user').html());
-    var shelves = Bookfriends.Collections.shelves =
-      new Bookfriends.Collections.Bookshelves([], {
-        userId: currentUser.current_user_id
-      });
-    shelves.fetch();
+    this.initialize();
 
     var view = new Bookfriends.Views.Library({
-      friendView: false,
-      friendShelves: undefined,
-      collection: shelves
+      mode: "own",
+      collection: Bookfriends.Collections.myShelves
     });
 
     this._swapView(view, "#main-content");
   },
 
   showFriendsIndex: function() {
-    var cu = JSON.parse($('#bstrapped-current-user').html());
-    var currentUser = new Bookfriends.Models.User ({ id: cu.current_user_id});
-    currentUser.fetch();
+    this.initialize();
 
-    window.cu = currentUser;
-
-    var shelves = Bookfriends.Collections.shelves =
-      new Bookfriends.Collections.Bookshelves([], {
-        userId: cu.current_user_id
-      });
-    shelves.fetch();
-
-    var view = new Bookfriends.Views.FriendsHome({
-      shelvesCollection: shelves,
-      user: currentUser
-    });
+    var view = new Bookfriends.Views.FriendsHome();
 
     this._swapView(view, "#main-content");
   },
 
+// Application wide variables
+// Bookfriends.Models.currentUser
+// Bookfriends.Collections.myShelves
+// Bookfriends.Collections.rentalsMade
+// Bookfriends.Collections.rentalsReceived
+// Bookfriends.Collections.friendsBooks // not a real collection
+
   showFriendLibrary: function(friendId) {
-    var cu = JSON.parse($('#bstrapped-current-user').html());
-    var currentUser = new Bookfriends.Models.User({ id: cu.current_user_id });
-    currentUser.fetch();
-    Bookfriends.Models.current_user = currentUser;
-    window.showf = this;
+    var friendIntId = parseInt(friendId);
+    this.initialize();
+    var router = this;
+    Bookfriends.Models.currentUser.fetch({
+      success: function() {
+        var friend = Bookfriends.Models.currentUser.friends().get(friendIntId);
+        var friendShelves = friend.shelves();
+        friendShelves.fetch();
 
-    var yourShelves = Bookfriends.Collections.shelves =
-      new Bookfriends.Collections.Bookshelves([], {
-        userId: cu.current_user_id
-      });
-    yourShelves.fetch();
+        var view = new Bookfriends.Views.Library({
+          collection: friendShelves,
+          mode: "friend",
+          friendId: friendIntId
+        });
 
-    var friendShelves =
-      new Bookfriends.Collections.Bookshelves([], {
-        userId: friendId
-      });
-    friendShelves.fetch();
-
-    var view = new Bookfriends.Views.Library({
-      friendShelves: friendShelves,
-      collection: yourShelves,
-      friendView: true,
-      friendId: friendId,
-      currentUser: currentUser
+        router._swapView(view, "#main-content");
+      }
     });
-    window.lib_view = view;
-
-    this._swapView(view, "#main-content");
   },
 
   userShowSearch: function() {
-    var currentUser = JSON.parse($('#bstrapped-current-user').html());
-    var shelves = Bookfriends.Collections.shelves =
-      new Bookfriends.Collections.Bookshelves([], {
-        userId: currentUser.current_user_id
-      });
-    shelves.fetch();
+    // var currentUser = JSON.parse($('#bstrapped-current-user').html());
+    // var shelves = Bookfriends.Collections.shelves =
+    //   new Bookfriends.Collections.Bookshelves([], {
+    //     userId: currentUser.current_user_id
+    //   });
+    // shelves.fetch();
 
     var view = new Bookfriends.Views.SearchHome({
-      collection: shelves
+      collection: Bookfriends.Collections.myShelves
     });
     this._swapView(view, "#main-content");
   },
@@ -96,7 +74,6 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     var view = new Bookfriends.Views.RentalsHome();
 
     this._swapView(view, "#main-content");
-
   },
 
   initialize: function() {
@@ -110,6 +87,7 @@ window.Bookfriends.Routers.AppRouter = Backbone.Router.extend({
     // Store all your own bookshelves
     Bookfriends.Collections.myShelves =
       new Bookfriends.Collections.Bookshelves([], {
+        owner: Bookfriends.Models.currentUser,
         userId: userId
       });
     Bookfriends.Collections.myShelves.fetch();

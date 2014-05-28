@@ -17,7 +17,8 @@ window.Bookfriends.Models.User = Backbone.Model.extend({
   shelves: function() {
     if (!this._shelves) {
       this._shelves = new Bookfriends.Collections.Bookshelves([],{
-        owner: this
+        owner: this,
+        userId: this.id
       });
     }
     return this._shelves;

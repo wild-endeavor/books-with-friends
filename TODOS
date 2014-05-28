@@ -10,15 +10,10 @@ When moving from Library view to search view, maintain the state of the shelf in
 
 
 Tuesday
-  Get approvals/deliveries to work.
-    commit
   Re-work the requests page to use the globals/initialize method.
-  Fix typeahead.
+  After making a request, remove it from the view - via adding it to the collection.
   Cross-reference search results to better display them.
-
-    Lending view
-      Be able to view lent books, receive them back, pending requests, change duration, approve them.
-      be able to view your request history.
+  Fix typeahead.
 
 
 
@@ -31,6 +26,8 @@ Wednesday/Thursday
 Additional things to implement:
   Use subviews for the rental request page instead of re-rendering the whole page.
   Allow users to cancel requests
+  Allow users to reject requests
+  Allow users to change the due-date on approval, and extend/change the due date of books lent out.
   Clean up unused routes/controllers
   Use custom routes instead of just the general update route to change status on rental requests.
 

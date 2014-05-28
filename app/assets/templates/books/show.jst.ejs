@@ -4,11 +4,14 @@
 <%= book.escape("author") %>
 
 
-<% if (showRemove) { %>
+<% if (mode === "own") { %>
   <button type="button" class="close remove-owned-book">&times;</button>
+  <% if (book.escape("available") === "F") { %>
+    This title is on loan
+  <% } %>    
 <% } %>
 
-<% if (showAdd) { %>
+<% if (mode === "search") { %>
   <% if (ownBookCatalog.indexOf(book.escape("google_id")) > -1) { %>
     <!-- // TODO: Link to shelf and scroll to book -->
     Already Owned
@@ -20,7 +23,7 @@
   <% } %>
 <% } %>
 
-<% if (showRequest) { %>
+<% if (mode === "friend") { %>
   <button type="button" class="close request-book">R</button>
 <% } %>
 

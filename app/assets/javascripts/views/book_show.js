@@ -5,9 +5,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
     this.listenTo(this.model, "sync", this.render);
     this.parentView = options.parentView;
     this.ownBookCatalog = options.ownBookCatalog;
-    this.showAdd = options.showAdd;
-    this.showRemove = options.showRemove;
-    this.showRequest = options.showRequest;
+    this.mode = options.mode;
   },
 
   attributes: function() {
@@ -44,9 +42,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
     var renderedContent = this.template({
       book: this.model,
       ownBookCatalog: this.parentView.parentView.bookCatalog,
-      showAdd: this.showAdd,
-      showRemove: this.showRemove,
-      showRequest: this.showRequest
+      mode: this.mode
     });
 
     this.$el.html(renderedContent);

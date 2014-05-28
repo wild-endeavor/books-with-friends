@@ -4,7 +4,7 @@ window.Bookfriends = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new Bookfriends.Routers.AppRouter();
+    window.router = new Bookfriends.Routers.AppRouter();
     Backbone.history.start();
     window.qqq;
   }

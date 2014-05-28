@@ -1,0 +1,31 @@
+
+
+library view
+has shelves
+shelves have books
+shelf index view
+shelf show view -> book view
+
+
+1. your own library
+2. your friend's library
+3. search page
+    shelf index, just a shelf show.
+
+
+the book show needs to show different things:
+  - if your own books, then allow deletion, and show whether it's been lent out
+    - needs book_id for deletion, status
+  - if your friends' books, then allow borrow, and show availability
+  - if search results then allow add, and show which friends own it
+
+
+Books are only ever shown by the shelf show view - maybe pass in a mode to the shelf show view?
+Assign a mode to the book - books are either owned, friends, or search results.
+
+When a book is requested, add it to the requestsmade global collection.
+if showing a book that is not your own, then check to see what it should show - a request button, or a requested comment
+mode can be passed in for now from the 
+
+
+
