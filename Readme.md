@@ -3,7 +3,8 @@
 ### Description ###
 This is a week-and-a-half long final project for [App Academy](http://www.appacademy.io).  This project
 was actually conceived long before I began the a/A curriculum, on a Bloomberg chat with a friend.  
-Somewhere between arguing over which authors were better and when I could borrow what, we decided a better inventory solution was needed.  Unfortunately, it wasn't until I began this course that I was able to spend time on it.
+Somewhere between arguing over which authors were better and when I could borrow what, we decided a better inventory solution was needed.  Unfortunately, it wasn't until I began this course that I really knew how to do any of it, or had time to do any
+of it.
 
 ## Technology ##
 
@@ -72,7 +73,6 @@ Styling sucks obviously.  Even the somewhat acceptable login page is blatantly p
 
 * Friends listing can be beefed up enormously and styled.  Much of this has to do with better user modeling/auth though.
 
-
 ### Larger Features ###
 * Use subviews for the rental request page instead of re-rendering the whole page.
 * Change model structure so that books belong directly to a user instead of through a bookshelf.
@@ -80,11 +80,13 @@ Styling sucks obviously.  Even the somewhat acceptable login page is blatantly p
   * Allow users to cancel requests
   * Allow users to reject requests
   * Allow users to change the due-date on approval, and extend/change the due date of books lent out.
-  * Add waiting lists
+  * Be able to handle multiple copies of the same book.
+  * Make search results aware of the rentals collection.
+  * Add waiting lists.
 * Move books user has borrowed onto a separate, special shelf.
 * Clean up unused routes/controllers
 * Use custom routes instead of just the general update route to change status on rental requests.
-* Add the whole searching for friends thing.  Currently the site should be called books-with-friends-that-you-add-on-the-backend
+* Devise, OmniAuth, making the login page https.  Add the whole searching for friends thing.  Currently the site should be called books-with-friends-that-you-add-on-the-backend.
 
 
 

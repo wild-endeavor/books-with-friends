@@ -86,10 +86,8 @@ div.session-col {
     margin-right: 20px;
 }
 
-div.qwerty {
-    border: 1px;
-    background-color: #f2d7ec;
-    border-style: solid;
+div.new-user-signup {
+    padding-top: 10px;
 }
 
 div.session-about-box {
@@ -125,5 +123,9 @@ div.about-text {
     top: 10%;
     right: 0px;
     content: "";
+}
+
+ul.nav li.user-page {
+    font-size: 14pt;
 }
 

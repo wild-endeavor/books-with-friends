@@ -145,7 +145,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   events: {
     "keyup #main-search-box": "keyUpHandler",
     "submit #rental-request-form": "saveRentalRequest"
-
   },
 
   handleSearchResponse: function(response) {
@@ -155,7 +154,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       this.hasSearched = true;
       this.startSearchResultsView();
     }
-    // this.searchShelf.set("name", "Search Results: " + this.searchTerms);
+    this.searchShelf.set("name", "Search Results: " + this.searchTerms);
     this.searchShelf.books().set(parsedBooks);
   },
 
@@ -266,7 +265,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     });
   },
 
-  // same as library
+  // same as library, exactly, should be factored out.
   saveRentalRequest: function(event) {
     event.preventDefault();
     var view = this;

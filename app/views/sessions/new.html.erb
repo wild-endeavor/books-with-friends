@@ -39,13 +39,14 @@
     <div class="new-session-column" style="padding-top:15px">
       <div>
         <h4>Employers: Please use one of these guest logins</h4>
-        <br>
-        <% @guest_logins.each do |key, value| %>
-          <button class="btn btn-info btn-sm guest-login"
-          data-id="<%= value%>"><%= key %></button>
-        <% end %>
+        <div class="login-buttons-container">
+          <% @guest_logins.each do |key, value| %>
+            <button class="btn btn-info btn-sm guest-login"
+            data-id="<%= value%>"><%= key %></button>
+          <% end %>
+        </div>
       </div>
-      <div>
+      <div class="new-user-signup">
         Not a registered user? <%= link_to "Sign Up", new_user_url %>
       </div>
     </div>
