@@ -49,6 +49,8 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     this.searchSuggestions = [
       "math",
       "apple",
+      "apple computers",
+      "apple juice",
       "fuji"
     ];
     this.initializedBloodhound = false;
