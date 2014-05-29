@@ -103,7 +103,7 @@ div.session-about-box {
     background-color: white;
     font-color: gray;
     font-size: 10pt;
-    margin: 0;
+    margin: 0 0 20px 0;
 }
 
 div.about-icon {
@@ -169,6 +169,10 @@ span.tt-dropdown-menu {
     border-color: #a6d0e1;
 }
 
+div.tt-suggestion > p:hover {
+    background-color: whitesmoke;
+}
+
 div.book-show-thumbnail-small {
     float:left;
 }
@@ -187,4 +191,9 @@ div.book-item:hover .book-action, div.book-item.hover .book-action {
 
 div.book-header-info {
     color: #42b4c0;
+}
+
+button.add-bookshelf {
+    margin-left: 25px;
+    margin-top: 15px;
 }

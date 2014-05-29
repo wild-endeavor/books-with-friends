@@ -48,6 +48,7 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
 
   addBookshelf: function(event) {
     this.$("input#new-bookshelf").show();
+    this.$("input#new-bookshelf").focus();
     $(event.currentTarget).hide()
   },
 
@@ -57,9 +58,6 @@ window.Bookfriends.Views.ShelfIndex = Backbone.CompositeView.extend({
     _(data.bookshelf).extend({ user_id: this.collection.userId });
     var shelf = new Bookfriends.Models.Bookshelf(data["bookshelf"]);
     var parentView = this;
-// ttt = this;
-// s = shelf;
-// debugger
     shelf.save({}, {
       success: function(model, response) {
         // debugger

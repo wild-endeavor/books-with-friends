@@ -61,11 +61,13 @@ Google is integral!  Everything is google: the suggestion engine, the searching,
 
 ### Basic Stuff ###
 
-* Typeahead doesn't work after doing one search
 * After hitting the add bookshelf button, set the focus to the search box
 * When moving from Library view to search view, maintain the state of the shelf index
 * Make an alert section that works.
-* Book show view, needs some basic styling.
+* Pre-populate typeahead when searching with existing book terms.  Get only real words
+  Maybe add another controller for this.
+* Add the add bookshelf button to the search view.
+
 
 
 ### Styling ###

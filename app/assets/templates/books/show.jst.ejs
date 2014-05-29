@@ -18,11 +18,12 @@
         <% } %>
       <% } %>
 
-      <% if (ownBookCatalog.indexOf(book.escape("google_id")) > -1) { %>
-        <!-- // TODO: Link to shelf and scroll to book -->
-        Owned
+      <% if (mode === "search") { %>
+        <% if (ownBookCatalog.indexOf(book.escape("google_id")) > -1) { %>
+          <!-- // TODO: Link to shelf and scroll to book -->
+          Owned
+        <% } %>
       <% } %>
-
 
     </div>
 
