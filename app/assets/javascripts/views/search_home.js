@@ -139,7 +139,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       mode: "search"
     });
     this.addSubview("#main-search-results", shelfShowView);
-    this.render();
+    // this.render();
   },
 
   events: {
@@ -159,6 +159,7 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   },
 
   render: function() {
+    console.log("In the render method");
     var renderedContent = this.template();
 
     this.$el.html(renderedContent);
