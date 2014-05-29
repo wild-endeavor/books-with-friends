@@ -28,10 +28,12 @@ window.Bookfriends.Views.Library = Backbone.CompositeView.extend({
     this.friendId = options.friendId;
 
     this.listenTo(this.collection, "sync", this.populateCatalog);
+    if (this.mode === "own") this.showAddShelf = true;
 
     // Make subview for the sidebar
     var shelfIndexView = new Bookfriends.Views.ShelfIndex({
       collection: this.collection,
+      showAdd: this.showAddShelf,
       parentView: this
     });
     this.addSubview("#bookshelf-list", shelfIndexView);

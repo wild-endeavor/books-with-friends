@@ -158,10 +158,11 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
     }
     this.searchShelf.set("name", "Search Results: " + this.searchTerms);
     this.searchShelf.books().set(parsedBooks);
+    $("input.tt-input").blur();
   },
 
   render: function() {
-    console.log("In the render method");
+    // console.log("In the render method");
     var renderedContent = this.template();
 
     this.$el.html(renderedContent);

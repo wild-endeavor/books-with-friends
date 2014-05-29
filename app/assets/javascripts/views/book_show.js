@@ -15,7 +15,7 @@ window.Bookfriends.Views.BookShow = Backbone.View.extend({
   attributes: function() {
     return {
       "data-id": this.model.get("google_id"),
-      "class": "book-item"
+      "class": "book-item row"
     };
   },
 

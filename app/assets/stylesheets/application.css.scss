@@ -88,7 +88,7 @@ div.session-col {
 
 div.session-col-bottom {
     align: bottom;
-    padding-top: 125px;
+    padding-top: 100px;
 }
 div.new-user-signup {
     padding-top: 10px;
@@ -129,6 +129,17 @@ div.about-text {
     content: "";
 }
 
+.session-border-left { position: relative; }
+.session-border-left:after {
+    position: absolute;
+    width: 0px;
+    border-left: 1px solid #aaa;
+    height: 80%;
+    top: 10%;
+    left: 0px;
+    content: "";
+}
+
 ul.nav li.user-page {
     font-size: 14pt;
 }
@@ -149,6 +160,8 @@ input.tt-input {
 span.tt-dropdown-menu {
     width: 75%;
     padding-left: 3px;
+    background-color: white;
+    opacity: 0.85;
     border-radius: 5px;
     border-style: solid;
     -webkit-box-shadow: 0 4px 8px rgba(0,0,0,0.5);
@@ -156,6 +169,22 @@ span.tt-dropdown-menu {
     border-color: #a6d0e1;
 }
 
-span.tt-suggestions {
-    vertical-align: middle;
+div.book-show-thumbnail-small {
+    float:left;
+}
+
+div.book-item {
+    margin: 20px 0;
+}
+
+button.book-action {
+    visibility: hidden;
+}
+
+div.book-item:hover .book-action, div.book-item.hover .book-action {
+    visibility: visible;
+}
+
+div.book-header-info {
+    color: #42b4c0;
 }

@@ -1,50 +1,76 @@
+<div class="col-md-12">
 
-<img src='<%= book.get("thumbnail_small") %>'>
-<h5><%= book.escape("title") %></h5>
-<%= book.escape("author") %>
+  <div class="row row-float-top book-header-info">
+    <div class="col-md-6">
+      <% if (mode === "own") { %>
+        <% if (book.escape("available") === "F") { %>
+          This title is on loan.
+        <% } %>   
+      <% } %>
+
+      <% if (mode === "friend") { %>
+        <% if (book.escape("available") === "F") { %>
+          Book is currently out.
+        <% } else { %>
+          <% if (requests.length > 0) { %>
+            Already requested.
+          <% } %>
+        <% } %>
+      <% } %>
+
+      <% if (ownBookCatalog.indexOf(book.escape("google_id")) > -1) { %>
+        <!-- // TODO: Link to shelf and scroll to book -->
+        Owned
+      <% } %>
 
 
-<% if (mode === "own") { %>
-  <button type="button" class="close remove-owned-book">&times;</button>
-  <% if (book.escape("available") === "F") { %>
-    This title is on loan.
-  <% } %>    
-<% } %>
+    </div>
 
-<% if (mode === "search") { %>
-  <% if (ownBookCatalog.indexOf(book.escape("google_id")) > -1) { %>
-    <!-- // TODO: Link to shelf and scroll to book -->
-    Already Owned
-  <% } else { %>
-    <button type="button"
-        class="add-book-to-shelf close btn btn-xs">
-          <span class="glyphicon glyphicon-plus"></span>
-    </button>
-  <% } %>
+    <div class="col-md-6" style="align: right">
+      <% if (mode === "own") { %>
+        <button type="button" class="close remove-owned-book book-action"><span class="glyphicon glyphicon-trash"></span></button>
+      <% } %>
 
-  <% if (friendAvailability && friendAvailability.length > 0) { %>
-    <ul>
-      <% _(friendAvailability).each(function(friend) { %>
-        <li>
-          <%= friend.escape("email") %> has this book!
-          <button type="button" class="btn btn-default btn-xs request-book" data-id="<%= friend.id %>">
-            <span class="glyphicon glyphicon-book"></span>
-          </button>
-        </li>
-      <% }) %>
-    </ul>
-  <% } %>
-<% } %>
+      <% if (mode === "friend") { %>
+        <% if (book.escape("available") === "T") { %>
+          <% if (requests.length === 0) { %>
+            <button type="button" class="close request-book">R</button>
+          <% } %>
+        <% } %>
+      <% } %>
 
-<% if (mode === "friend") { %>
-  <% if (book.escape("available") === "F") { %>
-    Book is currently out.
-  <% } else { %>
-    <% if (requests.length > 0) { %>
-      You've already requested this title.
-    <% } else { %>
-    <button type="button" class="close request-book">R</button>
-    <% } %>
-  <% } %>
-<% } %>
+      <% if (mode === "search") { %>
+        <% if (ownBookCatalog.indexOf(book.escape("google_id")) < 0) { %>
+          <button type="button" class="add-book-to-shelf close btn btn-xs book-action"><span class="glyphicon glyphicon-plus"></span></button>
+        <% } %>
 
+        <% if (friendAvailability && friendAvailability.length > 0) { %>
+          <ul>
+            <% _(friendAvailability).each(function(friend) { %>
+              <li>
+                <%= friend.escape("email") %> owns this -
+                <button type="button" class="btn btn-default btn-xs request-book" data-id="<%= friend.id %>">
+                  <span class="glyphicon glyphicon-book"></span>
+                </button>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="row book-row">
+
+    <div class="col-md-2">
+      <img src='<%= book.get("thumbnail_small") %>'>
+    </div>
+
+    <div class="col-md-9 col-offset-2">
+
+    <h4><%= book.escape("title") %></h4>
+    <%= book.escape("author") %>
+    </div>
+
+  </div>
+</div>
