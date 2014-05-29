@@ -72,15 +72,36 @@ div.new-session-column {
     padding: 0 15px 15px 15px;
 }
 
-div.session-col-6 {
-    margin-left: 25px;
+div.session-about-row {
+    background-color: #eef1f9;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.new-session-main-container > .row {
+    margin: 0;
+}
+
+div.session-col {
+    margin-right: 20px;
+}
+
+div.qwerty {
+    border: 1px;
+    background-color: #f2d7ec;
+    border-style: solid;
 }
 
 div.session-about-box {
+    border: 1px;
+    background-color: #f2d7ec;
+    border-style: solid;
     padding: 30px 0;
-    background-color: light-gray;
-    font-family: sans-serif;
+    border: 0 30px;
+    background-color: white;
+    font-color: gray;
     font-size: 10pt;
+    margin: 0;
 }
 
 div.about-icon {
