@@ -33,8 +33,8 @@ var engine = new Bloodhound({
 // kicks off the loading/processing of `local` and `prefetch`
 engine.initialize();
  
-// $('#bloodhound .typeahead').typeahead({
-  $('#bloodhound-search-area .typeahead').typeahead({
+$('#bloodhound .typeahead').typeahead({
+  // $('#bloodhound-search-area .typeahead').typeahead({
   hint: true,
   highlight: true,
   minLength: 1
