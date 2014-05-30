@@ -9,11 +9,14 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
     this.listenTo(this.model.books(), "sync", this.render);
     this.listenTo(this.model.books(), "add", this.addBook);
     this.listenTo(this.model.books(), "remove", this.removeBook);
+    if (options.mode === "search") {
+      this.listenTo(Bookfriends.Collections.rentalsMade, "add", this.updateBorrowedBook);
+    }
 
     this.parentView = options.parentView;
     this.mode = options.mode;
 
-    // Add subviews for books
+    // TODO: replace this with the addBook function
     var view = this;
     this.model.books().each(function(book) {
       var bookShowView = new Bookfriends.Views.BookShow({
@@ -22,9 +25,19 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
         ownBookCatalog: view.parentView.bookCatalog,
         mode: view.mode
       });
-      // option 1: change the book show view to look up the global hash when rendering search results
+      book.ownView = bookShowView;
       view.addSubview(".book-container", bookShowView);
     });
+  },
+
+  updateBorrowedBook: function(rentalRequest) {
+    // find the corresponding book model in the books() collection
+    // then update the borrowRequests array with the new request.
+    var book = this.model.books().findWhere({google_id: rentalRequest.get("google_id")});
+    book.get("borrowRequests").push(rentalRequest);
+    // instead of trying to get the backbone book model to listen to changes to the
+    // borrowRequests array (or make it a collection), just manually render.
+    book.ownView.render();
   },
 
   removeFromUserLibrary: function(event, bookModel) {
@@ -40,6 +53,7 @@ window.Bookfriends.Views.ShelfShow = Backbone.CompositeView.extend({
       ownBookCatalog: this.parentView.bookCatalog,
       mode: this.mode
     });
+    book.ownView = bookShowView;
     this.addSubview(".book-container", bookShowView);
   },
 

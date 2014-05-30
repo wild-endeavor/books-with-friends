@@ -85,6 +85,7 @@ Styling sucks obviously.  Even the somewhat acceptable login page is blatantly p
   * Be able to handle multiple copies of the same book.
   * Make search results aware of the rentals collection.
   * Add waiting lists.
+* Infinite scrolling for search results.
 * Move books user has borrowed onto a separate, special shelf.
 * Clean up unused routes/controllers
 * Use custom routes instead of just the general update route to change status on rental requests.

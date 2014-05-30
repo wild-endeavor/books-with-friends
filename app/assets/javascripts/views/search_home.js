@@ -30,8 +30,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       name: "Search Results"
     });
 
-    window.sh_view = this;
-
     // Active shelf object into which to add new books
     this._activeShelf;
 
@@ -141,7 +139,6 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
       mode: "search"
     });
     this.addSubview("#main-search-results", shelfShowView);
-    // this.render();
   },
 
   events: {
@@ -243,8 +240,16 @@ window.Bookfriends.Views.SearchHome = Backbone.CompositeView.extend({
   },
 
   requestBook: function(event, model) {
+    // console.log("in requestBook");
+    // console.log(event);
     var view = this;
     var friendId = parseInt($(event.target).parent().attr("data-id"));
+    // console.log("event target: ");
+    // console.log($(event.target));
+    // console.log("event target parent: ");
+    // console.log($(event.target).parent());
+    
+    // console.log("friendId" + friendId);
     var friend = Bookfriends.Models.currentUser.friends().get(friendId);
     var tempBookCollection = new Bookfriends.Collections.Books();
     tempBookCollection.userId = friendId;

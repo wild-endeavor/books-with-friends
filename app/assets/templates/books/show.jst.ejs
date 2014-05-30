@@ -23,6 +23,11 @@
           <!-- // TODO: Link to shelf and scroll to book -->
           Owned
         <% } %>
+        <% if (requests.length > 0) { %>
+          <% _(requests).each(function(request) { %>
+            You requested this on <%= request.get("created_at") %>.
+          <% }) %>
+        <% } %>
       <% } %>
 
     </div>
@@ -48,7 +53,7 @@
         <% if (friendAvailability && friendAvailability.length > 0) { %>
           <ul>
             <% _(friendAvailability).each(function(friend) { %>
-              <li>
+              <li data-id="<%= friend.id %>"> <!-- this is a hack, fix this - sometimes clicking on glyph, sometimes on button -->
                 <%= friend.escape("email") %> owns this -
                 <button type="button" class="btn btn-default btn-xs request-book" data-id="<%= friend.id %>">
                   <span class="glyphicon glyphicon-book"></span>
