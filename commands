@@ -1,2 +1,3 @@
 rake db:seed:dump FILE=db/gem_dump.rb
 heroku pg:psql --app infinite-oasis-3199 violet
+heroku pgbackups:restore HEROKU_POSTGRESQL_VIOLET_URL "https://s3-us-west-2.amazonaws.com/bookswithfriendstwo/dump"
