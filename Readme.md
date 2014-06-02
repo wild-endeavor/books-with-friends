@@ -67,6 +67,7 @@ Google is integral!  Everything is google: the suggestion engine, the searching,
 * Pre-populate typeahead when searching with existing book terms.  Get only real words
   Maybe add another controller for this.
 * Add the add bookshelf button to the search view.
+* Add badges to bookshelves when adding books to them.
 
 
 
@@ -92,7 +93,7 @@ still out on loan).
 * Clean up unused routes/controllers
 * Use custom routes instead of just the general update route to change status on rental requests.
 * Devise, OmniAuth, making the login page https.  Add the whole searching for friends thing.  Currently the site should be called books-with-friends-that-you-add-on-the-backend.
-
+* Add jquery-ui to make books draggable (dragging onto bookshelves to add for instance).
 
 
 
