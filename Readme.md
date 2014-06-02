@@ -1,5 +1,5 @@
 
-# Books With Friend #
+# Books With Friends #
 ### Description ###
 This is a week-and-a-half long final project for [App Academy](http://www.appacademy.io).  This project
 was actually conceived long before I began the a/A curriculum, on a Bloomberg chat with a friend.  
@@ -85,6 +85,8 @@ Styling sucks obviously.  Even the somewhat acceptable login page is blatantly p
   * Be able to handle multiple copies of the same book.
   * Make search results aware of the rentals collection.
   * Add waiting lists.
+* Better book deletion.  Also bookshelf deletion (handling deleting bookshelves with existing books, or with books that are
+still out on loan).
 * Infinite scrolling for search results.
 * Move books user has borrowed onto a separate, special shelf.
 * Clean up unused routes/controllers
